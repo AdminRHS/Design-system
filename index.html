@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Academy – Design System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    :root {
+      /* Full palette from design file for components */
+      --color-primary-main: #4299e1;
+      --color-primary-light: #63b3ed;
+      --color-primary-dark: #3182ce;
+      --color-secondary-main: #ed8936;
+      --color-success-main: #48BB78;
+      --color-error-main: #d32f2f;
+      --color-info-main: #0288d1;
+      --color-text-primary: #2d3748;
+      --color-text-secondary: #718096;
+      --color-contrast-text: #ffffff;
+      --border-color: #e0e0e0;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f7fafc;
+      color: #2d3748;
+    }
+    .color-box {
+      height: 120px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .dept-box {
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    #progress-fill-anim {
+        transition: width 1.5s ease-out;
+    }
+    .inset-shadow {
+        box-shadow: inset 2px 2px 5px #e0e0e0, inset -2px -2px 5px #ffffff;
+    }
+     /* Custom Department Colors for Tags */
+    .tag-designers { color: #6D28D9; background-color: rgba(109, 40, 217, 0.1); border: 1px solid #6D28D9; }
+    .tag-developers { color: #147857; background-color: rgba(20, 110, 81, 0.1); border: 1px solid #147857; }
+    .tag-managers { color: #DC2626; background-color: rgba(220, 38, 38, 0.1); border: 1px solid #DC2626; }
+    .tag-marketers { color: #EC4899; background-color: rgba(236, 72, 153, 0.1); border: 1px solid #EC4899; }
+    .tag-videographers { color: #F97316; background-color: rgba(249, 115, 22, 0.1); border: 1px solid #F97316; }
+    .tag-general { color: #4B5563; background-color: rgba(75, 85, 99, 0.1); border: 1px solid #4B5563; }
+
+    /* --- ADDED STYLES --- */
+    #page-layout-preview {
+        background-color: #ffffff;
+        border-color: #e5e7eb;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    #page-layout-preview.dark-preview {
+        background-color: #111827; /* Dark BG for the container */
+        border-color: #374151;
+    }
+    #page-layout-preview .main-content .placeholder-block {
+        background-color: #f3f4f6; /* Light theme placeholders */
+    }
+    #page-layout-preview.dark-preview .main-content .placeholder-block {
+        background-color: #374151; /* Dark theme placeholders */
+    }
+    .color-swatch {
+        width: 100%;
+        height: 80px;
+        border-radius: 8px;
+        border: 1px solid #eeeeee;
+    }
+    .table { width: 100%; border-collapse: collapse; margin: 24px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
+    .table th, .table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    .table th { background: #f9fafb; font-weight: 600; color: #4b5563; }
+    .table tr:last-child td { border-bottom: none; }
+    .table tr:hover { background-color: #f9fafb; }
+    .focus-ring { outline: 2px solid transparent; outline-offset: 2px; }
+    .focus-ring:focus-visible { outline-color: var(--color-primary-main); }
+
+    .alert { padding: 16px; border-radius: 8px; margin: 16px 0; border-left: 4px solid; }
+    .alert-info { background: rgba(2, 136, 209, 0.1); border-color: var(--color-info-main); color: var(--color-text-primary); }
+    .alert-success { background: rgba(72, 187, 120, 0.1); border-color: var(--color-success-main); color: var(--color-text-primary); }
+    .alert-error { background: rgba(211, 47, 47, 0.1); border-color: var(--color-error-main); color: var(--color-text-primary); }
+
+    /* Pagination Styles */
+    .pagination-item, .pagination-arrow {
+        display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+        border-radius: 50%; font-weight: 500; font-size: 1rem; line-height: 1;
+        transition: all 0.2s ease-in-out; color: var(--color-text-primary);
+    }
+    .pagination-arrow { color: var(--color-text-secondary); }
+    .pagination-item:hover, .pagination-arrow:hover { background-color: #f3f4f6; }
+    .pagination-item.active { background-color: var(--color-primary-main); color: var(--color-contrast-text); font-weight: 700; }
+    .pagination-arrow.disabled { color: #d1d5db; pointer-events: none; }
+
+    /* Icon Button */
+    .btn-icon-circle {
+        display: inline-flex; align-items: center; justify-content: center;
+        background-color: transparent; cursor: pointer; border: 0;
+        border-radius: 50%; padding: 12px;
+        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        color: var(--color-text-secondary);
+    }
+    .btn-icon-circle:hover { background-color: rgba(66, 153, 225, 0.08); }
+    .btn-icon-circle.active { color: var(--color-primary-main); }
+
+    /* Tab Component Styles */
+    .tabs-container {
+        display: flex;
+        background-color: #f3f4f6;
+        border-radius: 16px;
+    }
+    .dark .tabs-container {
+        background-color: rgba(255,255,255,0.05);
+    }
+    .tab-item {
+        flex: 1;
+        padding: 10px 16px;
+        border-radius: 12px;
+        border: none;
+        background-color: transparent;
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+    .tab-item:not(.active):hover {
+        color: var(--color-text-primary);
+        background-color: rgba(0,0,0,0.04);
+    }
+    .dark .tab-item:not(.active):hover {
+        background-color: rgba(99, 179, 237, 0.2);
+        color: var(--color-primary-light);
+    }
+    /* --- MODIFIED STYLE --- */
+    .tab-item.active {
+        background-color: var(--color-primary-main);
+        color: var(--color-contrast-text);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .dark .tab-item.active {
+        background-color: var(--color-primary-main);
+        color: var(--color-contrast-text);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    .dark .tab-item {
+      background-color: #1F2937;
+      color: var(--color-text-secondary);
+    }
+    .dark .tab-item.active {
+        background-color: #1A202C;
+        color: #f7fafc; /* CORRECTED TEXT COLOR */
+        box-shadow: none;
+    }
+    .dark .tab-item:not(.active):hover {
+        background-color: #1A202C;
+        color: #f7fafc; /* CORRECTED TEXT COLOR */
+    }
+
+    .code-block { background: #212121; color: #f8f8f2; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 16px 0; font-family: 'Courier New', monospace; font-size: 14px; }
+
+    /* Sizing for Material Icons */
+    .material-icons {
+      font-size: 32px; /* Corresponds to h-8 w-8 */
+    }
+
+    /* Styles for Difficulty & Profession Tags */
+    .tag-difficulty, .tag-profession, .tag-lead-generator { display: inline-flex; align-items: center; justify-content: center; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; }
+    .tag-beginner { background: linear-gradient(90deg, rgba(25, 135, 84, 0.9) 60%, rgba(20, 108, 67, 0.9) 100%); color: white; }
+    .tag-intermediate { background: linear-gradient(90deg, rgba(255, 193, 7, 0.9) 60%, rgba(255, 143, 0, 0.9) 100%); color: black; }
+    .tag-advanced { background: linear-gradient(90deg, rgba(111, 66, 193, 0.9) 60%, rgba(13, 202, 240, 0.9) 100%); color: white; }
+    .tag-profession { height: 24px; padding: 0 12px; border-radius: 999px; border: 1px solid rgb(182, 212, 254); background: rgb(227, 240, 255); color: rgb(26, 100, 215); font-weight: 600; font-size: 0.75rem; }
+    .tag-lead-generator { height: 24px; padding: 0 12px; border-radius: 999px; background: rgb(26, 100, 215); color: rgb(255, 255, 255); border: 1.5px solid rgb(182, 212, 254); font-weight: 600; font-size: 0.75rem; }
+
+  </style>
+</head>
+<body class="p-6 lg:p-12">
+  <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-8 lg:p-16">
+
+    <div class="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-12 rounded-xl mb-12">
+      <h1 class="text-5xl font-bold mb-4">🎮 Game Academy Design System</h1>
+      <p class="text-lg opacity-90">Complete UI/UX component documentation for the internal learning platform. Version 1.0 – October 2025</p>
+    </div>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🎨 Color System</h2>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Base Colors</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+            <div class="color-box" style="background: #4299e1;">
+                <div class="font-bold text-lg">Primary</div>
+                <div class="text-sm opacity-90">#4299e1</div>
+            </div>
+        </div>
+        <div>
+            <div class="color-box" style="background: #38a169;">
+                <div class="font-bold text-lg">Success</div>
+                <div class="text-sm opacity-90">#38a169</div>
+            </div>
+        </div>
+        <div>
+            <div class="color-box" style="background: #d32f2f;">
+                <div class="font-bold text-lg">Delete</div>
+                <div class="text-sm opacity-90">#d32f2f</div>
+            </div>
+        </div>
+      </div>
+            <h3 class="text-2xl font-semibold mt-16 mb-6 text-blue-500">Department Colors</h3>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-6 mb-8 text-center">
+        <div>
+            <div class="color-swatch" style="background-color: #4B5563"></div>
+            <p class="mt-2 font-semibold">All</p>
+        </div>
+        <div>
+            <div class="color-swatch" style="background-color: #6D28D9"></div>
+            <p class="mt-2 font-semibold">Designers</p>
+        </div>
+        <div>
+            <div class="color-swatch" style="background-color: #147857"></div>
+            <p class="mt-2 font-semibold">Developers</p>
+        </div>
+        <div>
+            <div class="color-swatch" style="background-color: #DC2626"></div>
+            <p class="mt-2 font-semibold">Managers</p>
+        </div>
+        <div>
+            <div class="color-swatch" style="background-color: #EC4899"></div>
+            <p class="mt-2 font-semibold">Marketers</p>
+        </div>
+        <div>
+            <div class="color-swatch" style="background-color: #F97316"></div>
+            <p class="mt-2 font-semibold">Videographers</p>
+        </div>
+      </div>
+      <div class="mt-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
+        <p class="text-sm text-gray-700"><strong>Note:</strong> Lighter or darker shades of the above colors may be used to expand the palette.</p>
+      </div>
+
+      <h3 class="text-2xl font-semibold mt-16 mb-6 text-blue-500">Background and Text Colors</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h4 class="text-xl font-semibold mb-4 text-gray-700">Light Theme</h4>
+          <div class="space-y-4">
+            <p class="font-semibold text-gray-600">Background Colors</p>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border" style="background-color: #f7fafc;"></div>
+              <div>
+                <p class="font-medium">Default</p>
+                <p class="text-sm text-gray-600 font-mono">#f7fafc</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border" style="background-color: #ffffff;"></div>
+              <div>
+                <p class="font-medium">Paper</p>
+                <p class="text-sm text-gray-600 font-mono">#ffffff</p>
+              </div>
+            </div>
+            <p class="font-semibold text-gray-600 mt-6">Text Colors</p>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border flex items-center justify-center text-2xl font-bold" style="color: #2d3748;">Aa</div>
+              <div>
+                <p class="font-medium">Primary</p>
+                <p class="text-sm text-gray-600 font-mono">#2d3748</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border flex items-center justify-center text-2xl font-bold" style="color: #718096;">Aa</div>
+              <div>
+                <p class="font-medium">Secondary</p>
+                <p class="text-sm text-gray-600 font-mono">#718096</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-xl font-semibold mb-4 text-gray-700">Dark Theme</h4>
+          <div class="space-y-4">
+            <p class="font-semibold text-gray-600">Background Colors</p>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border" style="background-color: #1a202c;"></div>
+              <div>
+                <p class="font-medium">Default</p>
+                <p class="text-sm text-gray-600 font-mono">#1a202c</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border" style="background-color: #1f2937;"></div>
+              <div>
+                <p class="font-medium">Paper</p>
+                <p class="text-sm text-gray-600 font-mono">#1f2937</p>
+              </div>
+            </div>
+            <p class="font-semibold text-gray-600 mt-6">Text Colors</p>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border bg-gray-800 flex items-center justify-center text-2xl font-bold" style="color: #f7fafc;">Aa</div>
+              <div>
+                <p class="font-medium">Primary</p>
+                <p class="text-sm text-gray-600 font-mono">#f7fafc</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-3 border rounded-lg">
+              <div class="w-16 h-16 rounded-lg border bg-gray-800 flex items-center justify-center text-2xl font-bold" style="color: #cbd5e0;">Aa</div>
+              <div>
+                <p class="font-medium">Secondary</p>
+                <p class="text-sm text-gray-600 font-mono">#cbd5e0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+    <section class="mb-16">
+        <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">📐 Layout & Spacing</h2>
+        <div class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+                <h3 class="text-2xl font-semibold text-blue-500">Page Layout</h3>
+                <button id="layout-theme-toggle" class="px-3 py-1 text-xs font-semibold rounded-full border border-gray-300 hover:bg-gray-100 transition-colors">Toggle Theme</button>
+            </div>
+            <p class="mb-8 text-gray-600">The main platform layout is "Sidebar + Main Content". On small screens, the sidebar collapses.</p>
+            <div id="page-layout-preview" class="w-full h-[450px] rounded-xl border flex p-4 gap-4">
+                <aside class="hidden md:flex w-1/4 h-full bg-gray-800 text-white rounded-lg flex-col p-4 shadow-md">
+                    <div class="w-3/4 h-6 bg-gray-600 rounded mb-6"></div>
+                    <div class="space-y-3">
+                        <div class="w-full h-4 bg-blue-500/50 rounded"></div>
+                        <div class="w-full h-4 bg-gray-700 rounded"></div>
+                        <div class="w-full h-4 bg-gray-700 rounded"></div>
+                        <div class="w-3/4 h-4 bg-gray-700 rounded"></div>
+                    </div>
+                </aside>
+                <main class="w-full md:w-3/4 h-full rounded-lg p-4 main-content">
+                    <div class="w-1/3 h-8 rounded mb-6 placeholder-block"></div>
+                    <div class="w-full h-24 rounded placeholder-block"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                        <div class="w-full h-32 rounded placeholder-block"></div>
+                        <div class="w-full h-32 rounded placeholder-block"></div>
+                        <div class="w-full h-32 rounded placeholder-block"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-6 mt-12 text-blue-500">Responsive Breakpoints</h3>
+             <div class="overflow-x-auto">
+                <table class="table">
+                    <thead><tr><th>Breakpoint</th><th>Width</th><th>Device</th></tr></thead>
+                    <tbody>
+                        <tr><td>Mobile</td><td>320px - 767px</td><td>Mobile devices</td></tr>
+                        <tr><td>Tablet</td><td>768px - 991px</td><td>Tablets</td></tr>
+                        <tr><td>Desktop</td><td>992px - 1199px</td><td>Small desktops</td></tr>
+                        <tr><td>Large Desktop</td><td>1200px - 1439px</td><td>Large desktops</td></tr>
+                        <tr><td>Extra Large</td><td>1440px+</td><td>Extra large screens</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">📝 Typography</h2>
+      <p class="text-gray-600 mb-8">Font: <strong>Roboto</strong> (weights: 300, 400, 500, 600, 700)</p>
+
+      <div class="space-y-8 p-8 bg-gray-50 rounded-xl">
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-5xl font-semibold mb-2">H1. Headline</div>
+          <p class="text-sm text-gray-500">Semi Bold • 48px • Line height 58px</p>
+        </div>
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-4xl font-semibold mb-2">H2. Headline</div>
+          <p class="text-sm text-gray-500">Semi Bold • 40px • Line height 48px</p>
+        </div>
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-3xl font-semibold mb-2">H3. Headline</div>
+          <p class="text-sm text-gray-500">Semi Bold • 32px • Line height 38px</p>
+        </div>
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-2xl font-semibold mb-2">H4. Headline</div>
+          <p class="text-sm text-gray-500">Semi Bold • 28px • Line height 34px</p>
+        </div>
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-xl font-semibold mb-2">H5. Headline</div>
+          <p class="text-sm text-gray-500">Semi Bold • 24px • Line height 28px</p>
+        </div>
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-base mb-2">B1. Body Regular</div>
+          <p class="text-sm text-gray-500">Regular • 16px • Line height 24px</p>
+        </div>
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-base font-medium mb-2">B2. Body Medium</div>
+          <p class="text-sm text-gray-500">Medium • 16px • Line height 24px</p>
+        </div>
+        <div class="border-b border-gray-200 pb-6">
+          <div class="text-sm mb-2">B3. Body Small</div>
+          <p class="text-sm text-gray-500">Regular • 14px • Line height 20px</p>
+        </div>
+        <div>
+          <div class="text-xs mb-2">Caption</div>
+          <p class="text-sm text-gray-500">Regular • 12px • Line height 16px</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+        <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">⌨️ Inputs & Controls</h2>
+        <div class="p-8 bg-gray-50 rounded-xl space-y-8">
+            <div>
+                <h4 class="font-semibold mb-4 text-gray-700">Text Inputs</h4>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="input-default" class="block text-sm font-medium mb-1">Text Field</label>
+                            <input id="input-default" type="text" placeholder="Enter text..." class="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus-ring focus:border-blue-500" />
+                        </div>
+                         <div>
+                            <label for="input-pass" class="block text-sm font-medium mb-1">Password</label>
+                            <input id="input-pass" type="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus-ring focus:border-blue-500" />
+                        </div>
+                         <div>
+                            <label for="input-textarea" class="block text-sm font-medium mb-1">Textarea</label>
+                            <textarea id="input-textarea" rows="3" placeholder="Enter longer text..." class="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus-ring focus:border-blue-500"></textarea>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="relative w-full">
+                            <label for="search-input" class="block text-sm font-medium mb-1">Search Input</label>
+                            <input id="search-input" type="text" placeholder="Search courses or videos..." class="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-300 focus-ring focus:border-blue-500 text-base shadow-sm"/>
+                            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 mt-[14px]"></i>
+                        </div>
+                        <div class="relative w-full">
+                            <label for="search-input-focus" class="block text-sm font-medium mb-1">Search Input (Focus State)</label>
+                            <input id="search-input-focus" type="text" placeholder="Search courses or videos..." class="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-blue-500 ring-blue-500/50 text-base shadow-sm"/>
+                            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-500 mt-[14px]"></i>
+                        </div>
+                        <div>
+                            <label for="input-error" class="block text-sm font-medium mb-1 text-red-600">Error State</label>
+                            <input id="input-error" type="text" value="Invalid input" class="w-full px-4 py-3 rounded-xl bg-white border border-red-500 focus-ring" style="--color-primary-main: var(--color-error-main);" />
+                            <p class="text-xs text-red-600 mt-1">This field is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🔘 Buttons</h2>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Button States</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-12">
+        <div>
+          <h4 class="font-semibold mb-4 text-gray-700">Primary</h4>
+          <div class="flex items-start justify-around gap-4 p-4 bg-gray-50 rounded-lg">
+            <div class="text-center">
+              <button class="px-5 py-2.5 bg-blue-500 text-white rounded-lg font-semibold transition-all">Primary</button>
+              <p class="text-xs text-gray-500 mt-2">Default: #4299e1</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-semibold shadow-md transition-all">Primary</button>
+              <p class="text-xs text-gray-500 mt-2">Hover: #3182ce</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-semibold transform scale-95 transition-all">Primary</button>
+              <p class="text-xs text-gray-500 mt-2">Active: #3182ce</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4 text-gray-700">Success</h4>
+          <div class="flex items-start justify-around gap-4 p-4 bg-gray-50 rounded-lg">
+            <div class="text-center">
+              <button class="px-5 py-2.5 text-white rounded-lg font-semibold transition-all" style="background-color: #38a169;">Success</button>
+              <p class="text-xs text-gray-500 mt-2">Default: #38a169</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 text-white rounded-lg font-semibold shadow-md transition-all" style="background-color: #2f855a;">Success</button>
+              <p class="text-xs text-gray-500 mt-2">Hover: #2f855a</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 text-white rounded-lg font-semibold transform scale-95 transition-all" style="background-color: #2f855a;">Success</button>
+              <p class="text-xs text-gray-500 mt-2">Active: #2f855a</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4 text-gray-700">Delete</h4>
+          <div class="flex items-start justify-around gap-4 p-4 bg-gray-50 rounded-lg">
+            <div class="text-center">
+              <button class="px-5 py-2.5 text-white rounded-lg font-semibold transition-all" style="background-color: #d32f2f;">Delete</button>
+              <p class="text-xs text-gray-500 mt-2">Default: #d32f2f</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 bg-red-700 text-white rounded-lg font-semibold shadow-md transition-all">Delete</button>
+              <p class="text-xs text-gray-500 mt-2">Hover: #c53030</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 bg-red-700 text-white rounded-lg font-semibold transform scale-95 transition-all">Delete</button>
+              <p class="text-xs text-gray-500 mt-2">Active: #c53030</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4 text-gray-700">Outline</h4>
+          <div class="flex items-start justify-around gap-4 p-4 bg-gray-50 rounded-lg">
+            <div class="text-center">
+              <button class="px-5 py-2.5 border border-blue-500 text-blue-500 bg-white rounded-lg font-semibold transition-all">Outline</button>
+              <p class="text-xs text-gray-500 mt-2">Default</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 border border-blue-500 text-blue-500 bg-blue-50 rounded-lg font-semibold shadow-md transition-all">Outline</button>
+              <p class="text-xs text-gray-500 mt-2">Hover: #ebf8ff</p>
+            </div>
+            <div class="text-center">
+              <button class="px-5 py-2.5 border border-blue-500 text-blue-500 bg-blue-50 rounded-lg font-semibold transform scale-95 transition-all">Outline</button>
+              <p class="text-xs text-gray-500 mt-2">Active: #ebf8ff</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-2">
+            <h4 class="font-semibold mb-4 text-gray-700">Ghost</h4>
+            <div class="flex items-start justify-around gap-4 p-4 bg-gray-50 rounded-lg">
+                <div class="text-center">
+                <button class="px-5 py-2.5 bg-transparent text-blue-500 rounded-lg font-semibold transition-all">Ghost</button>
+                <p class="text-xs text-gray-500 mt-2">Default</p>
+                </div>
+                <div class="text-center">
+                <button class="px-5 py-2.5 bg-gray-100 text-blue-500 rounded-lg font-semibold transition-all">Ghost</button>
+                <p class="text-xs text-gray-500 mt-2">Hover: #f7fafc</p>
+                </div>
+                <div class="text-center">
+                <button class="px-5 py-2.5 bg-gray-200 text-blue-500 rounded-lg font-semibold transform scale-95 transition-all">Ghost</button>
+                <p class="text-xs text-gray-500 mt-2">Active: #edf2f7</p>
+                </div>
+            </div>
+        </div>
+        <div class="lg:col-span-2">
+          <h4 class="font-semibold mb-4 text-gray-700">Disabled</h4>
+          <div class="flex items-start justify-start gap-4 p-4 bg-gray-50 rounded-lg">
+            <div class="text-center">
+              <button class="px-5 py-2.5 bg-gray-200 text-gray-400 rounded-lg font-semibold cursor-not-allowed">Disabled</button>
+              <p class="text-xs text-gray-500 mt-2">BG: #E5E7EB</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="text-2xl font-semibold mb-6 mt-12 text-blue-500">Icon + Text Buttons</h3>
+      <div class="p-8 bg-gray-50 rounded-xl">
+        <div class="flex items-center flex-wrap gap-4">
+          <button class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all hover:bg-gray-200">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
+            <span>Share</span>
+          </button>
+          <button class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all hover:bg-gray-200">
+            <i data-lucide="bookmark" class="w-4 h-4"></i>
+            <span>Save</span>
+          </button>
+        </div>
+      </div>
+      
+      <h3 class="text-2xl font-semibold mb-6 mt-12 text-blue-500">View Toggle Buttons</h3>
+      <div class="p-8 bg-gray-50 rounded-xl">
+          <p class="text-gray-600 mb-4">Used to switch between different layout views, like grid and list. The active state has a solid background.</p>
+          <div class="flex items-center gap-2">
+              <button id="ds-grid-view-btn" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-gray-700 bg-white border border-gray-200 hover:bg-gray-200">
+                  <i data-lucide="layout-grid" class="w-4 h-4"></i> Grid
+              </button>
+              <button id="ds-list-view-btn" class="flex items-center gap-2 px-3 py-2 text-sm rounded-lg bg-blue-500 text-white">
+                  <i data-lucide="list" class="w-4 h-4"></i> List
+              </button>
+          </div>
+      </div>
+      </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🍞 Breadcrumbs</h2>
+
+      <div class="space-y-6">
+        <div class="p-6 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-2 text-sm">
+            <span class="text-gray-600">Courses</span>
+            <span class="text-gray-500">/</span>
+            <span class="font-semibold text-gray-900">UI/UX Design Fundamentals</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-4">Category / Separator / Active</p>
+        </div>
+
+        <div class="p-6 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-2 text-sm">
+            <span class="font-semibold text-gray-900">Video Catalog</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-4">Active (single level)</p>
+        </div>
+      </div>
+
+      <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
+        <p class="text-sm text-gray-700"><strong>Specification:</strong></p>
+        <ul class="text-sm text-gray-600 mt-2 space-y-1">
+          <li>• Text size: 14px, inactive color: #718096, active: #2d3748</li>
+          <li>• Active element: font-weight: 600</li>
+          <li>• Separator: "/" or ">" icon, color: #cbd5e0</li>
+          <li>• Spacing between elements: 8px</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🎯 Department Filters</h2>
+
+      <div class="p-8 bg-gray-50 rounded-xl">
+        <div class="flex flex-wrap gap-3 mb-8">
+          <button class="px-5 py-2 border text-sm font-semibold rounded-full transition-all" style="background: rgba(75,85,99,0.15); color: #4B5563; border-color: #4B5563; border-width: 1px;">
+            All
+          </button>
+          <button class="px-5 py-2 border text-sm font-semibold rounded-full transition-all" style="background: rgba(66,153,225,0.15); color: #4299e1; border-color: #4299e1; border-width: 1px;">
+            General
+          </button>
+          <button class="px-5 py-2 border text-sm font-semibold rounded-full transition-all" style="background: rgba(109,40,217,0.15); color: #6D28D9; border-color: #6D28D9; border-width: 1px;">
+            Designers
+          </button>
+          <button class="px-5 py-2 border text-sm font-semibold rounded-full transition-all" style="background: rgba(16,185,129,0.15); color: #10B981; border-color: #10B981; border-width: 1px;">
+            Developers
+          </button>
+          <button class="px-5 py-2 border text-sm font-semibold rounded-full transition-all" style="background: rgba(220,38,38,0.15); color: #DC2626; border-color: #DC2626; border-width: 1px;">
+            Managers
+          </button>
+          <button class="px-5 py-2 border text-sm font-semibold rounded-full transition-all" style="background: rgba(236,72,153,0.15); color: #EC4899; border-color: #EC4899; border-width: 1px;">
+            Marketers
+          </button>
+          <button class="px-5 py-2 border text-sm font-semibold rounded-full transition-all" style="background: rgba(249,115,22,0.15); color: #F97316; border-color: #F97316; border-width: 1px;">
+            Videographers
+          </button>
+        </div>
+
+        <div class="p-4 bg-white border-l-4 border-blue-500 rounded">
+          <p class="text-sm font-semibold text-gray-800 mb-2">Interactivity:</p>
+          <ul class="text-sm text-gray-600 space-y-1">
+            <li>• Active: border thickness 1px, background with 15% opacity</li>
+            <li>• Hover: slight shadow and elevation</li>
+            <li>• Border-radius: 20px (pill shape)</li>
+            <li>• Font: 14px, font-weight: 600</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+        <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🏷️ Tags</h2>
+
+        <h3 class="text-2xl font-semibold mb-6 text-blue-500">Department Tags</h3>
+        <div class="p-8 bg-gray-50 rounded-xl mb-12">
+            <div class="flex flex-wrap gap-4 mb-8">
+                <span class="tag-general px-3 py-1.5 text-xs font-semibold rounded-md">#All</span>
+                <span class="tag-designers px-3 py-1.5 text-xs font-semibold rounded-md">#Design</span>
+                <span class="tag-developers px-3 py-1.5 text-xs font-semibold rounded-md">#Development</span>
+                <span class="tag-managers px-3 py-1.5 text-xs font-semibold rounded-md">#Management</span>
+                <span class="tag-marketers px-3 py-1.5 text-xs font-semibold rounded-md">#Marketing</span>
+                <span class="tag-videographers px-3 py-1.5 text-xs font-semibold rounded-md">#Video</span>
+            </div>
+            <div class="p-4 bg-white border-l-4 border-blue-500 rounded">
+                <p class="text-sm font-semibold text-gray-800 mb-2">Specification:</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• **Style**: Includes a 1px border with the department's color.</li>
+                    <li>• **Text Color**: Corresponds to the department color.</li>
+                    <li>• **Background Color**: Corresponds to the department color with 10% opacity.</li>
+                    <li>• **Font Size**: 12px (text-xs), Font Weight: 600 (font-semibold).</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="text-2xl font-semibold mb-6 text-blue-500">Status & Level Tags</h3>
+        <div class="p-8 bg-gray-50 rounded-xl">
+            <div class="mb-8">
+                <h4 class="font-semibold mb-4 text-gray-700">Statuses</h4>
+                <div class="flex flex-wrap items-center gap-4">
+                    <button class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-lg transition-transform transform hover:scale-105" style="background-color: #ed8936; color: #ffffff;">
+                        <i data-lucide="edit-3" class="w-3 h-3"></i>DRAFT
+                    </button>
+                    <button class="text-xs font-semibold px-3 py-1 rounded-lg transition-transform transform hover:scale-105" style="background-color: #ed8936; color: #ffffff;">PENDING</button>
+                    <button class="text-xs font-semibold px-3 py-1 rounded-lg transition-transform transform hover:scale-105" style="background-color: #48BB78; color: #ffffff;">ACTIVE</button>
+                    <button class="text-xs font-semibold px-3 py-1 rounded-lg transition-transform transform hover:scale-105" style="background-color: #4299e1; color: #ffffff;">COMPLETED</button>
+                </div>
+            </div>
+             <div>
+                <h4 class="font-semibold mb-4 text-gray-700">Difficulty Levels</h4>
+                <p class="text-sm text-gray-500 mb-3">Light Background</p>
+                <div class="flex flex-wrap gap-4">
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: rgba(72, 187, 120, 0.1); color: #38A169;">BEGINNER</span>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: rgba(237, 137, 54, 0.1); color: #dd6b20;">INTERMEDIATE</span>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: rgba(168, 85, 247, 0.1); color: #9333EA;">ADVANCED</span>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: rgba(211, 47, 47, 0.1); color: #c62828;">EXPERT</span>
+                </div>
+
+                <p class="text-sm text-gray-500 mt-6 mb-3">Solid Background</p>
+                <div class="flex flex-wrap gap-4">
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: #38a169; color: #ffffff;">BEGINNER</span>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: #dd6b20; color: #ffffff;">INTERMEDIATE</span>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: #9333EA; color: #ffffff;">ADVANCED</span>
+                    <span class="text-xs font-semibold px-3 py-1 rounded-lg" style="background-color: #c62828; color: #ffffff;">EXPERT</span>
+                </div>
+            </div>
+             <div class="p-4 bg-white border-l-4 border-blue-500 rounded mt-8">
+                <p class="text-sm font-semibold text-gray-800 mb-2">Specification:</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• **Style**: Solid background color with no border.</li>
+                    <li>• **Text Color**: High-contrast (usually white or black).</li>
+                    <li>• **Background Color**: Corresponds to the specific status or level color.</li>
+                    <li>• **Font Size**: 12px (text-xs), Font Weight: 600 (font-semibold), Text Transform: UPPERCASE.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🎨 Icons</h2>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Navigation</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="home" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">home</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="book-open" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">book-open</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="video" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">video</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="bookmark" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">bookmark</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="library" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">library</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="settings" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">settings</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="layout-dashboard" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">dashboard</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="list" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">list</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="grid" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">grid</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="sidebar" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">sidebar</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="book-marked" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">book-marked</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="history" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">history</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="trending-up" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">trending-up</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="compass" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">compass</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="map" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">map</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="bar-chart-3" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">bar-chart-3</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="pie-chart" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">pie-chart</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="git-merge" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">git-merge</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="git-pull-request" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">pull-request</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Actions</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="plus" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">plus</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="pencil" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">edit</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="trash-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">trash-2</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="save" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">save</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="download" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">download</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="upload" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">upload</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="share-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">share-2</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="copy" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">copy</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="check" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">check</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="x" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">x</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="rotate-ccw" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">undo</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="rotate-cw" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">redo</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="send" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">send</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="printer" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">print</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="log-in" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">log-in</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="log-out" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">log-out</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="archive" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">archive</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="move" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">move</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="power" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">power</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="refresh-cw" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">refresh</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Media Controls</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="play" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">play</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="pause" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">pause</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="skip-forward" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">skip-forward</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="skip-back" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">skip-back</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="volume-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">volume-2</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="volume-x" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">volume-x</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="maximize" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">maximize</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="minimize" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">minimize</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="picture-in-picture-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">pip</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="subtitles" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">captions</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="mic" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">mic</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="mic-off" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">mic-off</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="video-off" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">video-off</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="repeat" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">repeat</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="shuffle" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">shuffle</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="airplay" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">airplay</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="cast" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">cast</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="fast-forward" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">fast-forward</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="rewind" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">rewind</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="stop-circle" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">stop</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Statuses and Indicators</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="check-circle" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">check-circle</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="x-circle" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">x-circle</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="alert-triangle" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">alert-triangle</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="info" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">info</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="loader" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">loader</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="clock" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">clock</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="star" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">star</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="heart" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">heart</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="thumbs-up" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">thumbs-up</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="thumbs-down" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">thumbs-down</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="award" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">award</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="badge" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">badge</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="medal" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">medal</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="shield-check" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">shield-check</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="shield-alert" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">shield-alert</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="lock" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">lock</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="unlock" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">unlock</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="battery-charging" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">battery</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="wifi" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">wifi</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="flag" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">flag</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Interface</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="chevron-right" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">chevron-right</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="chevron-left" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">chevron-left</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="chevron-up" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">chevron-up</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="chevron-down" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">chevron-down</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="more-horizontal" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">more-horizontal</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="more-vertical" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">more-vertical</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="menu" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">menu</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="search" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">search</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="filter" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">filter</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="eye" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">eye</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="eye-off" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">eye-off</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="zoom-in" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">zoom-in</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="zoom-out" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">zoom-out</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="arrow-down-up" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">sort</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="sliders-horizontal" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">sliders</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="grip-vertical" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">drag-handle</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="app-window" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">window</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="chevrons-left-right" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">resize</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="sun" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">light-mode</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="moon" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">dark-mode</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Communication</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="message-square" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">message-square</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="mail" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">mail</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="bell" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">bell</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="user" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">user</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="users" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">users</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="graduation-cap" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">graduation-cap</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="calendar" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">calendar</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="link" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">link</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="external-link" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">external-link</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-text" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">file-text</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="at-sign" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">at-sign</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="phone" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">phone</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="message-circle" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">comment</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="podcast" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">podcast</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="rss" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">rss</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="globe" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">globe</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="hash" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">hash</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="voicemail" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">voicemail</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="contact" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">contact</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="help-circle" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">help</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Content Types</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-video-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">video-file</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-audio-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">audio-file</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-image" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">image-file</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-code-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">code-file</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-spreadsheet" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">spreadsheet</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="presentation" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">slides</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="scroll-text" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">article</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="clipboard-list" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">quiz</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="book-copy" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">ebook</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="package" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">module</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-question" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">assessment</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="clipboard-check" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">task</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Editing and Formatting</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="bold" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">bold</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="italic" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">italic</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="underline" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">underline</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="strikethrough" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">strikethrough</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="heading-1" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">heading-1</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="heading-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">heading-2</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="list-ordered" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">ordered-list</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="list" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">unordered-list</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="align-left" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">align-left</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="align-center" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">align-center</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="align-right" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">align-right</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="align-justify" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">align-justify</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="quote" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">quote</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="code" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">code-inline</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="link-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">add-link</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="unlink-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">remove-link</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="highlighter" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">highlight</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="pilcrow" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">paragraph</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Files and Folders</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">file</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="files" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">files</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="folder" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">folder</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="folder-open" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">folder-open</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="folder-plus" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">folder-add</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="folder-minus" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">folder-remove</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="folder-up" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">folder-up</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="folder-down" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">folder-down</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="folder-tree" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">folder-tree</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="file-archive" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">zip-file</span></div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Development (for technical courses)</h3>
+      <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-6 mb-12 p-6 bg-gray-50 rounded-xl">
+        <div class="flex flex-col items-center gap-3"><i data-lucide="code-2" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">code-block</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="terminal" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">terminal</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="git-branch" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">git-branch</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="git-commit" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">git-commit</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="git-merge" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">git-merge</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="git-pull-request" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">pull-request</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="git-fork" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">git-fork</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="braces" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">braces</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="brackets" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">brackets</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="database" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">database</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="server" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">server</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="cloud" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">cloud</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="bug" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">bug</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="keyboard" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">keyboard</span></div>
+        <div class="flex flex-col items-center gap-3"><i data-lucide="hard-drive" class="w-8 h-8 text-gray-700"></i><span class="text-xs text-gray-600 text-center">hard-drive</span></div>
+      </div>
+
+      <p class="mt-6 text-sm text-gray-600 bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+        <strong>Icon size:</strong> 24px (standard) • Use a consistent size for all icons in the system
+      </p>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">📏 Spacing and Sizing</h2>
+
+      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Spacing Scale (4px base)</h3>
+      <div class="grid grid-cols-2 md:grid-cols-7 gap-6 text-center">
+        <div>
+            <div class="w-1 h-1 mx-auto mb-2 bg-blue-500 rounded-full"></div>
+            <p class="font-semibold">4px</p>
+            <p class="text-xs text-gray-500">xs</p>
+        </div>
+        <div>
+            <div class="w-2 h-2 mx-auto mb-2 bg-blue-500 rounded-full"></div>
+            <p class="font-semibold">8px</p>
+            <p class="text-xs text-gray-500">sm</p>
+        </div>
+        <div>
+            <div class="w-4 h-4 mx-auto mb-2 bg-blue-500 rounded"></div>
+            <p class="font-semibold">16px</p>
+            <p class="text-xs text-gray-500">md</p>
+        </div>
+        <div>
+            <div class="w-6 h-6 mx-auto mb-2 bg-blue-500 rounded"></div>
+            <p class="font-semibold">24px</p>
+            <p class="text-xs text-gray-500">lg</p>
+        </div>
+        <div>
+            <div class="w-8 h-8 mx-auto mb-2 bg-blue-500 rounded"></div>
+            <p class="font-semibold">32px</p>
+            <p class="text-xs text-gray-500">xl</p>
+        </div>
+        <div>
+            <div class="w-12 h-12 mx-auto mb-2 bg-blue-500 rounded-lg"></div>
+            <p class="font-semibold">48px</p>
+            <p class="text-xs text-gray-500">2xl</p>
+        </div>
+        <div>
+            <div class="w-16 h-16 mx-auto mb-2 bg-blue-500 rounded-lg"></div>
+            <p class="font-semibold">64px</p>
+            <p class="text-xs text-gray-500">3xl</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🔲 Border Radius</h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="w-24 h-24 bg-blue-500 mb-3 mx-auto" style="border-radius: 4px;"></div>
+          <p class="font-semibold">4px - sm</p>
+          <p class="text-sm text-gray-600">Small elements, tags</p>
+        </div>
+        <div class="text-center">
+          <div class="w-24 h-24 bg-blue-500 mb-3 mx-auto" style="border-radius: 8px;"></div>
+          <p class="font-semibold">8px - md</p>
+          <p class="text-sm text-gray-600">Standard buttons, inputs</p>
+        </div>
+        <div class="text-center">
+          <div class="w-24 h-24 bg-blue-500 mb-3 mx-auto" style="border-radius: 12px;"></div>
+          <p class="font-semibold">12px - lg</p>
+          <p class="text-sm text-gray-600">Cards, modals</p>
+        </div>
+        <div class="text-center">
+          <div class="w-24 h-24 bg-blue-500 mb-3 mx-auto" style="border-radius: 16px;"></div>
+          <p class="font-semibold">16px - xl</p>
+          <p class="text-sm text-gray-600">Large containers</p>
+        </div>
+        <div class="text-center">
+          <div class="w-24 h-24 bg-blue-500 mb-3 mx-auto" style="border-radius: 50%;"></div>
+          <p class="font-semibold">50% - full</p>
+          <p class="text-sm text-gray-600">Pills, avatars (circular)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">☁️ Shadows</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 bg-white rounded-lg" style="box-shadow: 0 1px 3px rgba(0,0,0,0.12);">
+          <p class="font-semibold mb-2">Light</p>
+          <code class="text-xs text-gray-600">0 1px 3px rgba(0,0,0,0.12)</code>
+          <p class="text-sm text-gray-600 mt-2">Light hover effects</p>
+        </div>
+        <div class="p-6 bg-white rounded-lg" style="box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+          <p class="font-semibold mb-2">Card</p>
+          <code class="text-xs text-gray-600">0 2px 8px rgba(0,0,0,0.10)</code>
+          <p class="text-sm text-gray-600 mt-2">Standard cards</p>
+        </div>
+        <div class="p-6 bg-white rounded-lg" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16);">
+          <p class="font-semibold mb-2">Medium</p>
+          <code class="text-xs text-gray-600">0 3px 6px rgba(0,0,0,0.16)</code>
+          <p class="text-sm text-gray-600 mt-2">Dropdown menus, popovers</p>
+        </div>
+        <div class="p-6 bg-white rounded-lg" style="box-shadow: 0 10px 20px rgba(0,0,0,0.19);">
+          <p class="font-semibold mb-2">Heavy</p>
+          <code class="text-xs text-gray-600">0 10px 20px rgba(0,0,0,0.19)</code>
+          <p class="text-sm text-gray-600 mt-2">Modals</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+        <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🖼️ Cover Photos</h2>
+        <div class="grid grid-cols-1 gap-12">
+            <div>
+                <h3 class="text-2xl font-semibold mb-6 text-blue-500">Video Catalog Banner</h3>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                    <div style="width: 1300px; height: 210px; max-width: 100%;" class="overflow-hidden rounded-lg shadow-md bg-gray-200">
+                        <img src="pic.png" alt="Video Catalog Banner" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4"><strong>Dimensions:</strong> 1300x210 pixels</p>
+                    <p class="text-xs text-gray-500 mt-2">Used as a wide banner on the main video catalog page to showcase featured content or announcements.</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-6 text-blue-500">Course Cover</h3>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                     <div style="width: 1280px; height: 485px; max-width: 100%;" class="overflow-hidden rounded-lg shadow-md bg-gray-200">
+                        <img src="video.png" alt="Course Cover" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4"><strong>Dimensions:</strong> 1280x485 pixels</p>
+                    <p class="text-xs text-gray-500 mt-2">Used as the primary thumbnail for individual course pages and video previews.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">📚 Core Platform Components</h2>
+
+      <div class="mb-12">
+        <h3 class="text-2xl font-semibold mb-6 text-blue-500">Alerts</h3>
+        <div class="p-8 bg-gray-50 rounded-xl space-y-4">
+            <div class="alert alert-info"><strong>Info:</strong> This is an informational message to guide users.</div>
+            <div class="alert alert-success"><strong>Success:</strong> Your action was completed successfully!</div>
+            <div class="alert alert-error"><strong>Error:</strong> Something went wrong. Please try again.</div>
+        </div>
+      </div>
+
+      <div class="mb-12">
+        <h3 class="text-2xl font-semibold mb-6 text-blue-500">Pagination</h3>
+        <div class="p-8 bg-gray-50 rounded-xl flex justify-center">
+            <nav>
+                <ul class="flex items-center gap-2">
+                    <li><a href="#" class="pagination-arrow disabled"><i data-lucide="chevron-left" class="w-5 h-5"></i></a></li>
+                    <li><a href="#" class="pagination-item active">1</a></li>
+                    <li><a href="#" class="pagination-item">2</a></li>
+                    <li><a href="#" class="pagination-item">3</a></li>
+                    <li><a href="#" class="pagination-item">4</a></li>
+                    <li><a href="#" class="pagination-item">5</a></li>
+                    <li><a href="#" class="pagination-arrow"><i data-lucide="chevron-right" class="w-5 h-5"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+      </div>
+
+        <div class="guideline-section pb-12 mb-12">
+            <h3 class="text-2xl font-bold mb-6" id="tabs">Tabs</h3>
+            <p class="text-[var(--color-text-secondary)] mb-6">Tabs organize and allow navigation between groups of content that are related and at the same level of hierarchy.</p>
+            <div class="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500 text-sm">
+                <p class="font-semibold text-gray-800 dark:text-blue-300">Usage Note:</p>
+                <ul class="text-gray-700 dark:text-blue-300/90 mt-2 space-y-1 list-disc list-inside">
+                    <li><b>Use Cases:</b> Course pages (Overview, Syllabus, Resources), User Profiles (Progress, Saved Items), and Admin panels.</li>
+                    <li><b>Best Practices:</b> Keep labels short (3-6 tabs max). Ensure a clear active state and support keyboard navigation (arrow keys).</li>
+                    <li><b>Sub-tabs:</b> For secondary filtering within a tab, use smaller, pill-shaped tabs.</li>
+                </ul>
+            </div>
+            <div class="p-8 bg-[var(--color-bg-paper)] rounded-xl border border-[var(--border-color)] mt-8">
+                <div class="max-w-2xl mx-auto">
+                    <nav class="tabs-container p-1 rounded-xl">
+                        <button class="tab-item flex items-center justify-center gap-2">
+                            <i data-lucide="globe" class="w-4 h-4"></i>
+                            <span>Global</span>
+                        </button>
+                        <button class="tab-item flex items-center justify-center gap-2 active">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                            <span>Personal</span>
+                        </button>
+                        <button class="tab-item flex items-center justify-center gap-2">
+                            <i data-lucide="swords" class="w-4 h-4"></i>
+                            <span>Competitions</span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+      <div class="mb-12">
+        <h3 class="text-2xl font-semibold mb-6 text-blue-500">Icon Buttons</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="p-8 bg-gray-50 rounded-xl">
+                <h4 class="font-semibold text-center mb-4">On Light Surface</h4>
+                <div class="flex items-center justify-center flex-wrap gap-4">
+                    <button class="btn-icon-circle"><i data-lucide="star" class="w-6 h-6"></i></button>
+                    <button class="btn-icon-circle active"><i data-lucide="heart" class="w-6 h-6"></i></button>
+                    <button class="btn-icon-circle"><i data-lucide="bookmark" class="w-6 h-6"></i></button>
+                    <button class="btn-icon-circle"><i data-lucide="settings" class="w-6 h-6"></i></button>
+                </div>
+            </div>
+            <div class="p-8 bg-gray-800 rounded-xl">
+                <h4 class="font-semibold text-center text-white mb-4">On Dark Surface</h4>
+                <div class="flex items-center justify-center flex-wrap gap-4">
+                    <button class="btn-icon-circle" style="color: #cbd5e0;"><i data-lucide="star" class="w-6 h-6"></i></button>
+                    <button class="btn-icon-circle active" style="color: #63b3ed;"><i data-lucide="heart" class="w-6 h-6"></i></button>
+                    <button class="btn-icon-circle" style="color: #cbd5e0;"><i data-lucide="bookmark" class="w-6 h-6"></i></button>
+                    <button class="btn-icon-circle" style="color: #cbd5e0;"><i data-lucide="settings" class="w-6 h-6"></i></button>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-semibold mb-6 text-gray-700">Video Card Examples</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div>
+          <h4 class="font-semibold mb-4 text-center text-gray-600">Standard Video</h4>
+          <div class="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col h-full">
+            <div class="relative aspect-video">
+              <img src="course-1759849495170-509564191.jpg" alt="Mastering Notebook LM" class="w-full h-full object-cover">
+              <div class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">28:15</div>
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="flex items-start gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center font-bold text-purple-700 flex-shrink-0 text-lg">LW</div>
+                <div class="flex-grow">
+                  <h4 class="font-semibold text-lg leading-tight text-gray-800">Mastering Notebook LM</h4>
+                  <p class="text-sm text-gray-600">Laura Wilson</p>
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">Unlock the full potential of Notebook LM in this comprehensive guide for designers and researchers...</p>
+              <div class="flex gap-2 mt-auto">
+                <span class="tag-designers px-3 py-1.5 text-xs font-semibold rounded-md">#NotebookLM</span>
+                <span class="tag-designers px-3 py-1.5 text-xs font-semibold rounded-md">#Design</span>
+              </div>
+               <p class="text-xs text-gray-500 mt-4">112k views • 3 days ago</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-4 text-center text-gray-600">Video in Playlist</h4>
+          <div class="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col h-full">
+            <div class="relative aspect-video">
+              <img src="course-1759849495170-509564191.jpg" alt="Mastering Notebook LM" class="w-full h-full object-cover">
+              <div class="absolute bottom-2 right-2 bg-black/60 text-white p-2 rounded-md">
+                <i data-lucide="layers" class="w-5 h-5"></i>
+              </div>
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="flex items-start gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center font-bold text-purple-700 flex-shrink-0 text-lg">LW</div>
+                <div class="flex-grow">
+                  <h4 class="font-semibold text-lg leading-tight text-gray-800">Mastering Notebook LM</h4>
+                  <p class="text-sm text-gray-600">Laura Wilson</p>
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">Unlock the full potential of Notebook LM in this comprehensive guide for designers and researchers...</p>
+              <div class="flex gap-2 mt-auto">
+                <span class="tag-designers px-3 py-1.5 text-xs font-semibold rounded-md">#NotebookLM</span>
+                <span class="tag-designers px-3 py-1.5 text-xs font-semibold rounded-md">#Design</span>
+              </div>
+              <p class="text-xs text-gray-500 mt-4">112k views • 3 days ago</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-4 text-center text-gray-600">Another Video</h4>
+          <div class="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow bg-white flex flex-col h-full">
+            <div class="relative aspect-video">
+              <img src="course-1759849495170-509564191.jpg" alt="Introduction to Git" class="w-full h-full object-cover">
+              <div class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">19:40</div>
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <div class="flex items-start gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center font-bold text-green-700 flex-shrink-0 text-lg">JS</div>
+                <div class="flex-grow">
+                  <h4 class="font-semibold text-lg leading-tight text-gray-800">Introduction to Git</h4>
+                  <p class="text-sm text-gray-600">John Smith</p>
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">The perfect starting point for anyone new to version control. Learn the basic commands you need to get started...</p>
+              <div class="flex gap-2 mt-auto">
+                <span class="tag-developers px-3 py-1.5 text-xs font-semibold rounded-md">#Git</span>
+                <span class="tag-developers px-3 py-1.5 text-xs font-semibold rounded-md">#Development</span>
+              </div>
+               <p class="text-xs text-gray-500 mt-4">101k views • 4 months ago</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 col-span-1 md:col-span-2 lg:col-span-3">
+            <h3 class="text-2xl font-semibold mb-6 text-gray-700">Progress Bar</h3>
+
+            <div class="p-6 rounded-xl border border-gray-200 bg-white mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Course Progress</h2>
+                    <p class="text-sm text-gray-500">3 of 10 lessons completed</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 inset-shadow">
+                        <div class="bg-gradient-to-r from-blue-400 to-blue-500 h-2.5 rounded-full" style="width: 30%"></div>
+                    </div>
+                    <span class="font-bold text-lg text-blue-600">30%</span>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h4 class="font-semibold text-lg mb-6 text-gray-800">Specification and Animation</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-base font-medium text-gray-700 mb-4">Visual Components:</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500 to-blue-400 flex-shrink-0"></div>
+                                <p class="text-sm text-gray-600"><strong>Progress Color:</strong><br>Gradient from #4299e1 to #63b3ed.</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-gray-200 inset-shadow flex-shrink-0"></div>
+                                <p class="text-sm text-gray-600"><strong>Background Color:</strong><br>Gray, #E5E7EB with inner shadow.</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center flex-shrink-0">
+                                    <span class="font-bold text-lg text-blue-600">70%</span>
+                                </div>
+                                <p class="text-sm text-gray-600"><strong>Percentage Text:</strong><br>Color #3182ce, 18px, bold.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-base font-medium text-gray-700 mb-4">Interactive Animation Example:</p>
+                        <div class="border border-gray-200 rounded-xl p-4 bg-white">
+                           <div class="flex justify-between items-center mb-2">
+                               <span class="text-sm font-medium text-gray-700">Loading...</span>
+                               <button id="play-anim-btn" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all flex-shrink-0 leading-none">
+                                   <i data-lucide="play" class="w-4 h-4"></i>
+                               </button>
+                           </div>
+                           <div class="flex items-center gap-4">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 inset-shadow">
+                                    <div id="progress-fill-anim" class="bg-gradient-to-r from-blue-400 to-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                                <span id="progress-text-anim" class="font-bold text-lg text-blue-600 w-12 text-right">0%</span>
+                           </div>
+                        </div>
+                         <p class="text-xs text-gray-500 mt-2">Click the button to restart the fill and counter animation to 70%.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </div>
+
+      <h3 class="text-3xl font-semibold mb-6 mt-12 text-blue-500">Lesson View</h3>
+
+      <div class="mb-8">
+        <div class="mb-6">
+            <h4 class="font-semibold text-lg mb-3">Lesson States</h4>
+            <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500 text-sm text-gray-700 space-y-2">
+                <p>• <strong class="text-blue-600">Not Started:</strong> Lesson is available to be taken (blue "Start" button).</p>
+                <p>• <strong class="text-green-600">Ready for Test:</strong> Lesson material has been completed, test needs to be taken (green "Test" button).</p>
+                <p>• <strong class="text-green-700">Passed:</strong> Lesson and test successfully completed (green button with percentage, e.g., "100%").</p>
+                <p>• <strong class="text-red-600">Test Failed:</strong> Lesson has a red border and an icon indicating a low score on the test.</p>
+                <p>• <strong class="text-gray-500">Locked:</strong> Lesson is not yet available (gray background and lock icon).</p>
+            </div>
+        </div>
+        <h4 class="font-semibold text-lg mb-4">Grid View - Card Variants</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <div class="bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 flex flex-col">
+            <div class="relative aspect-video bg-gradient-to-br from-blue-400 to-teal-400">
+              <div class="absolute top-3 right-3 bg-gray-700/80 text-white text-sm font-medium px-3 py-1 rounded-lg">15 min</div>
+              <img src="course-1759849495170-509564191.jpg" alt="Lesson" class="w-full h-full object-cover">
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <h5 class="font-semibold text-lg mb-2 text-gray-800">Understanding the Interface</h5>
+              <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">A deep dive into the user interface, exploring every menu and option to make you a power user.</p>
+              <div class="flex items-center gap-4 text-sm text-gray-600 mb-4 mt-auto">
+                <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4"></i> 3 videos</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="clipboard-check" class="w-4 h-4"></i> 1 tests</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 flex flex-col">
+            <div class="relative aspect-video bg-gradient-to-br from-orange-400 to-pink-400">
+              <div class="absolute top-3 right-3 bg-gray-700/80 text-white text-sm font-medium px-3 py-1 rounded-lg">20 min</div>
+              <img src="course-1759849495170-509564191.jpg" alt="Lesson" class="w-full h-full object-cover">
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <h5 class="font-semibold text-lg mb-2 text-gray-800">First Steps After Installation</h5>
+              <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">To complete setup, you must securely configure your account and link all your devices.</p>
+              <div class="flex items-center gap-4 text-sm text-gray-600 mb-4 mt-auto">
+                <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4"></i> 1 videos</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="presentation" class="w-4 h-4"></i> 2 slides</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 flex flex-col">
+            <div class="relative aspect-video bg-gradient-to-br from-green-400 to-blue-400">
+              <div class="absolute top-3 right-3 bg-gray-700/80 text-white text-sm font-medium px-3 py-1 rounded-lg">18 min</div>
+              <img src="course-1759849495170-509564191.jpg" alt="Lesson" class="w-full h-full object-cover">
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <h5 class="font-semibold text-lg mb-2 text-gray-800">Installing the Application</h5>
+              <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">Follow this easy-to-use, step-by-step guide to effortlessly download and install the application.</p>
+              <div class="flex items-center gap-4 text-sm text-gray-600 mb-4 mt-auto">
+                <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4"></i> 2 videos</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="clipboard-check" class="w-4 h-4"></i> 1 tests</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-red-50 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow border border-red-500 flex flex-col">
+            <div class="relative aspect-video bg-gradient-to-br from-red-400 to-orange-400">
+              <div class="absolute top-3 right-3 bg-gray-700/80 text-white text-sm font-medium px-3 py-1 rounded-lg">25 min</div>
+              <img src="course-1759849495170-509564191.jpg" alt="Lesson" class="w-full h-full object-cover">
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <h5 class="font-semibold text-lg mb-2 text-gray-800 flex items-center gap-2">Your First Sync <i data-lucide="alert-circle" class="w-5 h-5 text-red-600"></i></h5>
+              <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">Learn how to effortlessly add, sync, and securely verify your first files and folders to quickly understand.</p>
+              <div class="flex items-center gap-4 text-sm text-gray-600 mb-4 mt-auto">
+                <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4"></i> 2 videos</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="clipboard-check" class="w-4 h-4"></i> 2 tests</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 relative flex flex-col">
+            <div class="relative aspect-video bg-gray-300">
+              <img src="course-1759849495170-509564191.jpg" alt="Lesson" class="w-full h-full object-cover filter grayscale" style="opacity: 30%;">
+              <div class="absolute inset-0 bg-gray-700/30 flex items-center justify-center">
+                 <i data-lucide="lock" class="w-8 h-8 text-white"></i>
+              </div>
+
+              <div class="absolute top-3 right-3 bg-gray-700/80 text-white text-sm font-medium px-3 py-1 rounded-lg">30 min</div>
+
+            </div>
+            <div class="p-5 flex flex-col flex-grow">
+              <h5 class="font-semibold text-lg mb-2 text-gray-400">Advanced Sharing Options</h5>
+              <p class="text-sm text-gray-400 mb-4 leading-relaxed flex-grow">Master the art of sharing files and folders with advanced permissions and security settings.</p>
+              <div class="flex items-center gap-4 text-sm text-gray-400 mb-4 mt-auto">
+                <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4"></i> 4 videos</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="presentation" class="w-4 h-4"></i> 4 slides</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div>
+        <h4 class="font-semibold text-lg mb-4 mt-8">List View - Status Indicators</h4>
+        <div class="space-y-4">
+
+          <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow flex items-center gap-4">
+            <img src="course-1759849495170-509564191.jpg" class="w-40 h-24 object-cover rounded-lg flex-shrink-0" alt="Lesson thumbnail">
+            <div class="flex-grow">
+              <h5 class="font-semibold text-base mb-1">Installing Dropbox</h5>
+              <p class="text-sm text-gray-600 mb-2">Follow this comprehensive, easy-to-use, step-by-step guide...</p>
+              <div class="flex items-center gap-3 text-xs text-gray-500">
+                <span><i data-lucide="video" class="inline w-3 h-3"></i> 2 videos</span>
+                <span><i data-lucide="presentation" class="inline w-3 h-3"></i> 1 slides</span>
+              </div>
+            </div>
+          </div>
+
+           <div class="border border-red-500 bg-red-50 rounded-xl p-4 hover:shadow-md transition-shadow flex items-center gap-4">
+             <img src="course-1759849495170-509564191.jpg" class="w-40 h-24 object-cover rounded-lg flex-shrink-0" alt="Lesson thumbnail">
+            <div class="flex-grow">
+               <h5 class="font-semibold text-base mb-1 flex items-center gap-2">First Steps After Installation <i data-lucide="alert-circle" class="w-4 h-4 text-red-600"></i></h5>
+              <p class="text-sm text-gray-600 mb-2">To complete the initial Dropbox setup, you must securely configure...</p>
+              <div class="flex items-center gap-3 text-xs text-gray-500">
+                <span><i data-lucide="video" class="inline w-3 h-3"></i> 1 videos</span>
+                <span><i data-lucide="presentation" class="inline w-3 h-3"></i> 2 slides</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow flex items-center gap-4">
+            <img src="course-1759849495170-509564191.jpg" class="w-40 h-24 object-cover rounded-lg flex-shrink-0" alt="Lesson thumbnail">
+            <div class="flex-grow">
+              <h5 class="font-semibold text-base mb-1">Your First Sync: Adding Files</h5>
+              <p class="text-sm text-gray-600 mb-2">Learn how to effortlessly add, sync, and securely verify your first files...</p>
+              <div class="flex items-center gap-3 text-xs text-gray-500">
+                <span><i data-lucide="video" class="inline w-3 h-3"></i> 2 videos</span>
+                <span><i data-lucide="presentation" class="inline w-3 h-3"></i> 1 slides</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow flex items-center gap-4">
+             <img src="course-1759849495170-509564191.jpg" class="w-40 h-24 object-cover rounded-lg flex-shrink-0" alt="Lesson thumbnail">
+            <div class="flex-grow">
+              <h5 class="font-semibold text-base mb-1">Understanding the Interface</h5>
+              <p class="text-sm text-gray-600 mb-2">A deep dive into the Dropbox user interface, exploring every menu...</p>
+              <div class="flex items-center gap-3 text-xs text-gray-500">
+                <span><i data-lucide="video" class="inline w-3 h-3"></i> 3 videos</span>
+                <span><i data-lucide="presentation" class="inline w-3 h-3"></i> 1 slides</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-gray-200 rounded-xl p-4 flex items-center gap-4 opacity-50">
+            <div class="relative w-40 h-24 rounded-lg flex-shrink-0">
+              <img src="course-1759849495170-509564191.jpg" class="w-full h-full object-cover rounded-lg filter grayscale" alt="Lesson thumbnail">
+              <div class="absolute inset-0 bg-gray-700/30 flex items-center justify-center rounded-lg">
+                 <i data-lucide="lock" class="w-8 h-8 text-white"></i>
+              </div>
+            </div>
+            <div class="flex-grow">
+              <h5 class="font-semibold text-base mb-1">Advanced Sharing Options</h5>
+              <p class="text-sm text-gray-600 mb-2">Master the art of sharing files and folders with advanced permissions...</p>
+              <div class="flex items-center gap-3 text-xs text-gray-500">
+                <span><i data-lucide="video" class="inline w-3 h-3"></i> 4 videos</span>
+                <span><i data-lucide="presentation" class="inline w-3 h-3"></i> 2 slides</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">⚙️ Technicals</h2>
+      <div class="mb-12">
+          <h3 class="text-2xl font-semibold mb-6 text-blue-500">Motion & Transitions</h3>
+          <div class="overflow-x-auto">
+              <table class="table">
+                  <thead><tr><th>Duration</th><th>Value</th><th>Usage</th></tr></thead>
+                  <tbody>
+                      <tr><td>Fast</td><td>150ms</td><td>Micro-interactions, button press</td></tr>
+                      <tr><td>Normal</td><td>300ms</td><td>Standard transitions, hover effects</td></tr>
+                      <tr><td>Slow</td><td>500ms</td><td>Page transitions, animations</td></tr>
+                  </tbody>
+              </table>
+          </div>
+          <p class="mt-4 text-gray-600"><strong>Easing:</strong> ease-in-out for entrance/exit transitions</p>
+      </div>
+
+     <div class="mb-12">
+          <h3 class="text-2xl font-semibold mb-6 text-blue-500">Z-Index Layers</h3>
+          <div class="overflow-x-auto">
+              <table class="table">
+                  <thead><tr><th>Element</th><th>Z-Index Value</th><th>Usage</th></tr></thead>
+                  <tbody>
+                      <tr><td>Dropdown</td><td>1000</td><td>Dropdown menus</td></tr>
+                      <tr><td>Sticky</td><td>1020</td><td>Sticky elements</td></tr>
+                      <tr><td>Fixed</td><td>1030</td><td>Fixed elements</td></tr>
+                      <tr><td>Backdrop</td><td>1040</td><td>Modal backgrounds</td></tr>
+                      <tr><td>Modal</td><td>1050</td><td>Modal windows</td></tr>
+                      <tr><td>Popover</td><td>1060</td><td>Popover elements</td></tr>
+                      <tr><td>Tooltip</td><td>1070</td><td>Tooltips</td></tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="mb-16">
+        <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">Accessibility (WCAG AA)</h2>
+        <ul class="list-disc list-inside space-y-3 text-gray-700 p-4 bg-gray-50 rounded-lg">
+            <li><strong>Color Contrast:</strong> All text and icons maintain AA contrast minimums over surfaces in both light and dark themes.</li>
+            <li><strong>Keyboard Navigation:</strong> All interactive elements are reachable and operable via keyboard. The tab order follows the visual order, and visible focus rings are present.</li>
+            <li><strong>Screen Readers:</strong> Semantic HTML is used. `aria-labels` are provided for icon-only buttons, and descriptive `alt` text for images.</li>
+            <li><strong>Forms:</strong> All form inputs are associated with a `label`. Error messages are programmatically linked to their respective inputs.</li>
+            <li><strong>Reduced Motion:</strong> Animations and transitions are minimized or disabled if the user has a `prefers-reduced-motion` preference.</li>
+        </ul>
+    </section>
+
+    <section id="css-variables" class="mb-16">
+        <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">CSS Variables Reference</h2>
+        <div class="code-block"><pre>:root {
+  /* Primary & Secondary */
+  --color-primary-main: #4299e1;
+  --color-primary-light: #63b3ed;
+  --color-primary-dark: #3182ce;
+  --color-secondary-main: #ed8936;
+
+  /* Semantic */
+  --color-success-main: #48BB78;
+  --color-error-main: #d32f2f;
+  --color-info-main: #0288d1;
+
+  /* Background & Text */
+  --color-bg-default: #f7fafc;
+  --color-bg-paper: #ffffff;
+  --color-text-primary: #2d3748;
+  --color-text-secondary: #718096;
+
+  /* Borders */
+  --border-color: #e0e0e0;
+}
+</pre></div>
+    </section>
+
+    <div class="mt-20 p-8 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-xl text-center">
+      <h3 class="text-3xl font-bold mb-4">🎉 Design System Ready!</h3>
+      <p class="text-lg opacity-90">Use this documentation as the single source of truth for all UI components of the Game Academy platform.</p>
+      <p class="mt-6 text-sm opacity-75">Version 1.0 – October 2025 • Game Academy Team</p>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const playBtn = document.getElementById('play-anim-btn');
+    const progressFill = document.getElementById('progress-fill-anim');
+    const progressText = document.getElementById('progress-text-anim');
+
+    if (playBtn) { // Check if element exists to avoid errors
+      playBtn.addEventListener('click', () => {
+          // Reset animation before playing
+          progressFill.style.transition = 'none'; // Disable transition for instant reset
+          progressFill.style.width = '0%';
+          progressText.textContent = '0%';
+
+          // A tiny timeout to allow the browser to apply the reset styles
+          setTimeout(() => {
+              progressFill.style.transition = 'width 1.5s ease-out'; // Re-enable transition
+              const targetWidth = 70;
+              const duration = 1500;
+
+              // Animate bar width
+              progressFill.style.width = targetWidth + '%';
+
+              // Animate text counter
+              let start = 0;
+              const end = targetWidth;
+              if (start === end) return;
+
+              let current = start;
+              const increment = end > start ? 1 : -1;
+              const stepTime = Math.abs(Math.floor(duration / (end - start)));
+
+              const timer = setInterval(() => {
+                  current += increment;
+                  progressText.textContent = current + '%';
+                  if (current == end) {
+                      clearInterval(timer);
+                  }
+              }, stepTime);
+          }, 50);
+      });
+    }
+
+    // --- ADDED SCRIPT FOR LAYOUT PREVIEW THEME TOGGLE ---
+    const layoutToggleBtn = document.getElementById('layout-theme-toggle');
+    const layoutPreview = document.getElementById('page-layout-preview');
+    if (layoutToggleBtn && layoutPreview) {
+        layoutToggleBtn.addEventListener('click', () => {
+            layoutPreview.classList.toggle('dark-preview');
+        });
+    }
+    
+    // --- SCRIPT FOR TABS ---
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.tabs-container').forEach(function(container){
+        container.setAttribute('role','tablist');
+        const tabs = Array.from(container.querySelectorAll('.tab-item'));
+        if (!tabs.length) return;
+
+        function setActive(newIndex){
+          tabs.forEach((tab, i) => {
+            const isActive = i === newIndex;
+            tab.classList.toggle('active', isActive);
+            tab.setAttribute('role','tab');
+            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            tab.setAttribute('tabindex', isActive ? '0' : '-1');
+          });
+        }
+
+        let firstActive = tabs.findIndex(t => t.classList.contains('active'));
+        if (firstActive < 0) firstActive = 0;
+        setActive(firstActive);
+
+        tabs.forEach((tab, i) => {
+          tab.addEventListener('click', () => setActive(i));
+          tab.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'Home' || e.key === 'End') {
+              e.preventDefault();
+              let next = i;
+              if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+              if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+              if (e.key === 'Home') next = 0;
+              if (e.key === 'End') next = tabs.length - 1;
+              setActive(next);
+              tabs[next].focus({preventScroll:true});
+            }
+          });
+        });
+      });
+    });
+
+    // --- ADDED SCRIPT FOR VIEW TOGGLE BUTTONS ---
+    (function(){
+      const gridBtn = document.getElementById('ds-grid-view-btn');
+      const listBtn = document.getElementById('ds-list-view-btn');
+      if(!gridBtn || !listBtn) return;
+      
+      function activate(btnActive, btnInactive) {
+        // Style active button
+        btnActive.classList.add('bg-blue-500', 'text-white');
+        btnActive.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200', 'hover:bg-gray-200');
+
+        // Style inactive button
+        btnInactive.classList.remove('bg-blue-500', 'text-white');
+        btnInactive.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200', 'hover:bg-gray-200');
+      }
+
+      gridBtn.addEventListener('click', () => activate(gridBtn, listBtn));
+      listBtn.addEventListener('click', () => activate(listBtn, gridBtn));
+    })();
+
+  </script>
+</body>
+</html>
