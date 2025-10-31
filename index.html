@@ -62,6 +62,119 @@
     .tag-videographers { color: #F97316; background-color: rgba(249, 115, 22, 0.1); border: 1px solid #F97316; }
     .tag-general { color: #4B5563; background-color: rgba(75, 85, 99, 0.1); border: 1px solid #4B5563; }
 
+/*
+      Кастомні РАДІОКНОПКИ для тесту (адаптивно)
+    */
+.radio-option-label {
+background-color: var(--color-bg-paper);
+ border: 1px solid var(--color-border-main);
+ border-radius: 12px; /* rounded-xl з ДС */
+ padding: 20px; /* p-5 */
+ display: flex;
+ align-items: center;
+ gap: 16px; /* gap-4 */
+cursor: pointer;
+ transition: all 150ms ease-in-out;
+ }
+.radio-option-label:hover {
+ background-color: var(--color-bg-default); /* Легкий hover */
+ border-color: var(--color-text-muted);
+}
+    /* Стилі при виборі опції */
+    .radio-option-label input:checked ~ .radio-circle {
+      border-color: var(--color-primary-main);
+    }
+    .radio-option-label input:checked ~ .radio-circle .radio-inner-circle {
+      transform: scale(1);
+    }
+    .radio-option-label input:checked ~ .radio-text {
+      color: var(--color-text-main);
+      font-weight: 500;
+    }
+
+    .radio-circle {
+      width: 24px; /* w-6 */
+      height: 24px; /* h-6 */
+      border-radius: 50%;
+      border: 2px solid var(--color-text-muted); /* Адаптивно */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 150ms ease-in-out;
+    }
+    .radio-inner-circle {
+      width: 12px; /* w-3 */
+      height: 12px; /* h-3 */
+      background-color: var(--color-primary-main);
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 150ms ease-in-out;
+    }
+ .radio-text {
+ color: var(--color-text-muted); /* Адаптивно */
+ font-size: 16px; /* B1. Body Regular */
+ transition: all 150ms ease-in-out;
+ }
+
+/*
+      ДОДАНО: Кастомні ЧЕКБОКСИ для тесту (адаптивно)
+    */
+ .checkbox-option-label {
+ background-color: var(--color-bg-paper);
+ border: 1px solid var(--color-border-main);
+ border-radius: 12px; /* rounded-xl з ДС */
+ padding: 20px; /* p-5 */
+ display: flex;
+ align-items: center;
+ gap: 16px; /* gap-4 */
+ cursor: pointer;
+ transition: all 150ms ease-in-out;
+ }
+ .checkbox-option-label:hover {
+background-color: var(--color-bg-default); /* Легкий hover */
+ border-color: var(--color-text-muted);
+ }
+ /* Стилі при виборі опції */
+ .checkbox-option-label input:checked ~ .checkbox-circle {
+ border-color: var(--color-primary-main);
+ background-color: var(--color-primary-main);
+ }
+.checkbox-option-label input:checked ~ .checkbox-circle .checkbox-inner-check {
+ opacity: 1;
+ }
+ .checkbox-option-label input:checked ~ .checkbox-text {
+ color: var(--color-text-main);
+ font-weight: 500;
+ }
+
+
+    .checkbox-circle {
+      width: 24px; /* w-6 */
+      height: 24px; /* h-6 */
+      border-radius: 6px; /* rounded-md */
+      border: 2px solid var(--color-text-muted); /* Адаптивно */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 150ms ease-in-out;
+      background-color: transparent;
+    }
+    .checkbox-inner-check {
+      /* Використовуємо inline SVG для галочки, щоб не залежати від lucide.js */
+      width: 16px;
+      height: 16px;
+      color: var(--color-contrast-text);
+      opacity: 0;
+      transition: opacity 150ms ease-in-out;
+    }
+ .checkbox-text {
+ color: var(--color-text-muted); /* Адаптивно */
+ font-size: 16px; /* B1. Body Regular */
+ transition: all 150ms ease-in-out;
+}
+
     /* --- ADDED STYLES --- */
     #page-layout-preview {
         background-color: #ffffff;
@@ -180,6 +293,136 @@
       font-size: 32px; /* Corresponds to h-8 w-8 */
     }
 
+    :root {
+  --color-primary: #4299e1;
+  --color-text-main: #2d3748;
+  --color-text-muted: #718096;
+  --color-border: #e0e0e0;
+  --color-bg-paper: #ffffff;
+  --color-bg-default: #f7fafc;
+  transition: background-color 200ms ease-in-out;
+}
+
+body.dark {
+  --color-bg-default: #1a202c;
+  --color-bg-paper: #1f2937;
+  --color-text-main: #f7fafc;
+  --color-text-muted: #cbd5e0;
+  --color-border: #374151;
+}
+
+.form-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: var(--color-bg-default);
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.form-group h3 {
+  color: var(--color-text-main);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-bg-paper);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 150ms ease-in-out;
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+}
+
+.option:hover {
+  background: var(--color-bg-default);
+  border-color: var(--color-text-muted);
+}
+
+.option input {
+  display: none;
+}
+
+/* Radio */
+.indicator.radio {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 150ms ease-in-out;
+}
+
+.indicator.radio::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 150ms ease-in-out;
+}
+
+.option input:checked + .indicator.radio {
+  border-color: var(--color-primary);
+}
+.option input:checked + .indicator.radio::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Checkbox */
+.indicator.checkbox {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  position: relative;
+  flex-shrink: 0;
+  transition: border-color 150ms ease-in-out, background-color 150ms ease-in-out;
+}
+
+.indicator.checkbox::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  width: 10px;
+  height: 16px;
+  border: solid #ffffff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.option input:checked + .indicator.checkbox {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.option input:checked + .indicator.checkbox::after {
+  opacity: 1;
+}
+
+.text {
+  color: var(--color-text-muted);
+  font-size: 16px;
+  transition: color 150ms ease-in-out;
+}
+
+.option input:checked ~ .text {
+  color: var(--color-text-main);
+  font-weight: 500;
+}
     /* Styles for Difficulty & Profession Tags */
     .tag-difficulty, .tag-profession, .tag-lead-generator { display: inline-flex; align-items: center; justify-content: center; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; }
     .tag-beginner { background: linear-gradient(90deg, rgba(25, 135, 84, 0.9) 60%, rgba(20, 108, 67, 0.9) 100%); color: white; }
@@ -621,6 +864,137 @@
         </ul>
       </div>
     </section>
+
+
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+        3. Dropdown Panels (Menu)
+    </h3>
+    <p class="text-gray-600 mb-6">
+        Dropdown menu variants used for selection.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div>
+            <h4 class="text-lg font-semibold text-gray-700 mb-3">Multi-Select (Checkboxes)</h4>
+            <p class="text-sm text-gray-600 mb-4">
+                Allows selecting multiple options. Used for "Professions", "Tools", etc.
+            </p>
+            <div class="relative w-full">
+                <div class="static z-20 w-full mt-1 bg-white border border-[#e0e0e0] rounded-xl shadow-lg max-h-60 overflow-y-auto">
+                    <div class="p-4 space-y-3">
+                        <label class="flex items-center gap-3">
+                            <input type="checkbox" checked class="prof-checkbox rounded text-blue-500 focus:ring-blue-500">
+                            <span class="text-gray-800">Designers</span>
+                        </label>
+                        <label class="flex items-center gap-3">
+                            <input type="checkbox" class="prof-checkbox rounded text-blue-500 focus:ring-blue-500">
+                            <span class="text-gray-800">Developers</span>
+                        </label>
+                        <label class="flex items-center gap-3">
+                            <input type="checkbox" class="prof-checkbox rounded text-blue-500 focus:ring-blue-500">
+                            <span class="text-gray-800">Managers</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h5 class="font-semibold text-gray-700">Checkbox Styles:</h5>
+                <ul class="list-disc list-inside text-gray-600 text-sm mt-2 space-y-1">
+                    <li><code>.rounded</code></li>
+                    <li><code>.text-blue-500</code></li>
+                    <li><code>.focus:ring-blue-500</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="text-lg font-semibold text-gray-700 mb-3">Single-Select (Buttons)</h4>
+            <p class="text-sm text-gray-600 mb-4">
+                Allows selecting only one option. Used for "Level", "Sort By", etc.
+            </p>
+            <div class="relative w-full">
+                <div class="static z-20 w-full mt-1 bg-white border border-[#e0e0e0] rounded-xl shadow-lg max-h-60 overflow-y-auto">
+                    <div class="p-2 space-y-1">
+                        <button type="button" class="w-full text-left px-3 py-2 rounded-lg text-gray-800 hover:bg-gray-100">
+                            All Levels
+                        </button>
+                        <button type="button" class="w-full text-left px-3 py-2 rounded-lg text-gray-800 hover:bg-gray-100 bg-gray-100">
+                            Beginner (Active)
+                        </button>
+                        <button type="button" class="w-full text-left px-3 py-2 rounded-lg text-gray-800 hover:bg-gray-100">
+                            Intermediate
+                        </button>
+                        <button type="button" class="w-full text-left px-3 py-2 rounded-lg text-gray-800 hover:bg-gray-100">
+                            Advanced
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h5 class="font-semibold text-gray-700">Option Button Styles:</h5>
+                <ul class="list-disc list-inside text-gray-600 text-sm mt-2 space-y-1">
+                    <li><b>Default:</b> TBD</li>
+                    <li><b>Hover:</b> <code>hover:bg-gray-100</code></li>
+                    <li><b>Active/Selected:</b> <code>bg-gray-100</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="form-controls-demo" class="design-section">
+  <h2>4. Form Controls: Answer Types</h2>
+  <div class="form-demo">
+    <!-- Single Choice (Radio Buttons) -->
+    <div class="form-group">
+      <h3>Single Choice</h3>
+      <label class="option">
+        <input type="radio" name="single" />
+        <span class="indicator radio"></span>
+        <span class="text">Option 1</span>
+      </label>
+      <label class="option">
+        <input type="radio" name="single" />
+        <span class="indicator radio"></span>
+        <span class="text">Option 2</span>
+      </label>
+    </div>
+
+    <!-- Multiple Choice (Checkboxes) -->
+    <div class="form-group">
+      <h3>Multiple Choice</h3>
+      <label class="option">
+        <input type="checkbox" />
+        <span class="indicator checkbox"></span>
+        <span class="text">Option A</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" />
+        <span class="indicator checkbox"></span>
+        <span class="text">Option B</span>
+      </label>
+    </div>
+
+    <!-- True/False -->
+    <div class="form-group">
+      <h3>True / False</h3>
+      <label class="option">
+        <input type="radio" name="tf" />
+        <span class="indicator radio"></span>
+        <span class="text">True</span>
+      </label>
+      <label class="option">
+        <input type="radio" name="tf" />
+        <span class="indicator radio"></span>
+        <span class="text">False</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+
+
 
     <section class="mb-16">
       <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🎯 Department Filters</h2>
