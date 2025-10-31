@@ -943,6 +943,171 @@ body.dark {
         </div>
     </div>
 </div>
+
+<!-- === FILTERS & DROPDOWN STATES DEMO (LIGHT THEME) === -->
+<section id="filters-and-dropdown-demo" class="my-10 p-6 bg-white border border-[#e0e0e0] rounded-2xl shadow-sm">
+  <h3 class="text-xl font-semibold mb-8 text-[#2d3748]">Filters & Dropdown – All States (Light Theme)</h3>
+
+  <style>
+    .btn-demo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 0.75rem;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      transition: all 0.2s ease;
+    }
+
+    /* FILTER BUTTON STATES */
+    .filter-default svg { color: #718096; }
+    .filter-hover { border-color: #3b82f6; }
+    .filter-hover svg { color: #3b82f6; }
+    .filter-active { border-color: #3b82f6; background-color: #eff6ff; }
+    .filter-active svg { color: #3b82f6; }
+
+    /* CLEAR BUTTON STATES */
+    .clear-default svg { color: #718096; }
+    .clear-hover { border-color: #ef4444; }
+    .clear-hover svg { color: #ef4444; }
+    .clear-active { border-color: #ef4444; background-color: #fee2e2; }
+    .clear-active svg { color: #ef4444; }
+
+    /* DROPDOWN STATES */
+    .dropdown-demo {
+      width: 240px;
+      border-radius: 0.75rem;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .dropdown-demo span { color: #2d3748; }
+
+    .dropdown-hover { border-color: #3b82f6; color: #3b82f6; }
+    .dropdown-hover span { color: #3b82f6; }
+    .dropdown-active { border-color: #3b82f6; background-color: #eff6ff; color: #3b82f6; }
+    .dropdown-active span { color: #3b82f6; }
+    .dropdown-one span { color: #2d3748; }
+    .dropdown-multi span { color: #2d3748; }
+
+    .dropdown-menu-demo {
+      margin-top: 4px;
+      border: 1px solid #e0e0e0;
+      border-radius: 0.75rem;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0.75rem 1rem;
+      width: 240px;
+    }
+
+    .state-label {
+      font-size: 0.85rem;
+      color: #718096;
+      text-align: center;
+      margin-top: 0.4rem;
+    }
+  </style>
+
+  <div class="flex flex-wrap justify-between gap-8">
+
+    <!-- LEFT SIDE: BUTTON STATES -->
+    <div class="flex flex-col gap-10">
+      <!-- FILTER BUTTON -->
+      <div>
+        <h4 class="font-medium text-[#4a5568] mb-3">Filter Button</h4>
+        <div class="flex gap-4 items-center">
+          <div class="btn-demo filter-default"><i data-lucide="filter" class="w-5 h-5"></i></div>
+          <div class="btn-demo filter-hover"><i data-lucide="filter" class="w-5 h-5"></i></div>
+          <div class="btn-demo filter-active"><i data-lucide="filter" class="w-5 h-5"></i></div>
+        </div>
+        <div class="flex gap-16 text-sm text-[#718096] mt-2">
+          <span>Default</span><span>Hover</span><span>Active</span>
+        </div>
+      </div>
+
+      <!-- CLEAR BUTTON -->
+      <div>
+        <h4 class="font-medium text-[#4a5568] mb-3">Clear Button</h4>
+        <div class="flex gap-4 items-center">
+          <div class="btn-demo clear-default"><i data-lucide="trash-2" class="w-5 h-5"></i></div>
+          <div class="btn-demo clear-hover"><i data-lucide="trash-2" class="w-5 h-5"></i></div>
+          <div class="btn-demo clear-active"><i data-lucide="trash-2" class="w-5 h-5"></i></div>
+        </div>
+        <div class="flex gap-16 text-sm text-[#718096] mt-2">
+          <span>Default</span><span>Hover</span><span>Active</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: DROPDOWN STATES -->
+    <div class="flex flex-col gap-6">
+      <h4 class="font-medium text-[#4a5568] mb-3">Dropdown States</h4>
+
+      <!-- Default -->
+      <div>
+        <div class="dropdown-demo">
+          <span>All Professions</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
+        </div>
+        <p class="state-label">Default</p>
+      </div>
+
+      <!-- Hover -->
+      <div>
+        <div class="dropdown-demo dropdown-hover">
+          <span>All Professions</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-blue-500"></i>
+        </div>
+        <p class="state-label">Hover</p>
+      </div>
+
+      <!-- Active (menu open) -->
+      <div>
+        <div class="dropdown-demo dropdown-active">
+          <span>All Professions</span>
+          <i data-lucide="chevron-up" class="w-5 h-5 text-blue-500"></i>
+        </div>
+        <div class="dropdown-menu-demo">
+          <label class="flex items-center gap-3 mb-2"><input type="checkbox" checked class="accent-blue-500"><span>Designers</span></label>
+          <label class="flex items-center gap-3 mb-2"><input type="checkbox" class="accent-blue-500"><span>Developers</span></label>
+          <label class="flex items-center gap-3"><input type="checkbox" class="accent-blue-500"><span>Managers</span></label>
+        </div>
+        <p class="state-label">Active (Open)</p>
+      </div>
+
+      <!-- One Selected -->
+      <div>
+        <div class="dropdown-demo dropdown-one">
+          <span>Designers</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
+        </div>
+        <p class="state-label">One Selected</p>
+      </div>
+
+      <!-- Multiple Selected -->
+      <div>
+        <div class="dropdown-demo dropdown-multi">
+          <span>3 selected</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
+        </div>
+        <p class="state-label">Multiple Selected</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</section>
+<!-- === END FILTERS & DROPDOWN STATES DEMO === -->
+
+
 <section id="form-controls-demo" class="design-section">
   <h2>4. Form Controls: Answer Types</h2>
   <div class="form-demo">
