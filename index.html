@@ -434,6 +434,8 @@ body.dark {
   </style>
 </head>
 <body class="p-6 lg:p-12">
+
+  
   <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-8 lg:p-16">
 
     <div class="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-12 rounded-xl mb-12">
@@ -441,60 +443,505 @@ body.dark {
       <p class="text-lg opacity-90">Complete UI/UX component documentation for the internal learning platform. Version 1.0 – October 2025</p>
     </div>
 
-    <section class="mb-16">
-      <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🎨 Color System</h2>
+<!-- ============== SYSTEM COLORS (Light + Dark) ============== -->
+<section id="system-colors" class="mb-20">
+  <h3 class="text-2xl font-semibold mt-16 mb-6 text-blue-500">System Colors</h3>
 
-      <h3 class="text-2xl font-semibold mb-6 text-blue-500">Base Colors</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-            <div class="color-box" style="background: #4299e1;">
-                <div class="font-bold text-lg">Primary</div>
-                <div class="text-sm opacity-90">#4299e1</div>
-            </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- LIGHT THEME -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4 text-gray-700">Light Theme</h4>
+      <div class="dc-grid">
+        <!-- Primary -->
+        <div class="dc-block">
+          <p class="dc-title">Primary</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#2563EB"></div><p class="dc-caption">Default<br><span class="hex">#2563EB</span></p></div>
+            <div><div class="dc-color" style="--c:#3B82F6"></div><p class="dc-caption">Hover<br><span class="hex">#3B82F6</span></p></div>
+            <div><div class="dc-color" style="--c:#1D4ED8"></div><p class="dc-caption">Active<br><span class="hex">#1D4ED8</span></p></div>
+          </div>
         </div>
-        <div>
-            <div class="color-box" style="background: #38a169;">
-                <div class="font-bold text-lg">Success</div>
-                <div class="text-sm opacity-90">#38a169</div>
-            </div>
+
+        <!-- Secondary -->
+        <div class="dc-block">
+          <p class="dc-title">Secondary</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#6B7280"></div><p class="dc-caption">Default<br><span class="hex">#6B7280</span></p></div>
+            <div><div class="dc-color" style="--c:#9CA3AF"></div><p class="dc-caption">Hover<br><span class="hex">#9CA3AF</span></p></div>
+            <div><div class="dc-color" style="--c:#4B5563"></div><p class="dc-caption">Active<br><span class="hex">#4B5563</span></p></div>
+          </div>
         </div>
-        <div>
-            <div class="color-box" style="background: #d32f2f;">
-                <div class="font-bold text-lg">Delete</div>
-                <div class="text-sm opacity-90">#d32f2f</div>
-            </div>
+
+        <!-- Success -->
+        <div class="dc-block">
+          <p class="dc-title">Success</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#16A34A"></div><p class="dc-caption">Default<br><span class="hex">#16A34A</span></p></div>
+            <div><div class="dc-color" style="--c:#22C55E"></div><p class="dc-caption">Hover<br><span class="hex">#22C55E</span></p></div>
+            <div><div class="dc-color" style="--c:#15803D"></div><p class="dc-caption">Active<br><span class="hex">#15803D</span></p></div>
+          </div>
+        </div>
+
+        <!-- Tertiary -->
+        <div class="dc-block">
+          <p class="dc-title">Tertiary</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#A855F7"></div><p class="dc-caption">Default<br><span class="hex">#A855F7</span></p></div>
+            <div><div class="dc-color" style="--c:#C084FC"></div><p class="dc-caption">Hover<br><span class="hex">#C084FC</span></p></div>
+            <div><div class="dc-color" style="--c:#9333EA"></div><p class="dc-caption">Active<br><span class="hex">#9333EA</span></p></div>
+          </div>
+        </div>
+
+        <!-- Warning -->
+        <div class="dc-block">
+          <p class="dc-title">Warning</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#F97316"></div><p class="dc-caption">Default<br><span class="hex">#F97316</span></p></div>
+            <div><div class="dc-color" style="--c:#FB923C"></div><p class="dc-caption">Hover<br><span class="hex">#FB923C</span></p></div>
+            <div><div class="dc-color" style="--c:#EA580C"></div><p class="dc-caption">Active<br><span class="hex">#EA580C</span></p></div>
+          </div>
+        </div>
+
+        <!-- Delete -->
+        <div class="dc-block">
+          <p class="dc-title">Delete</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#DC2626"></div><p class="dc-caption">Default<br><span class="hex">#DC2626</span></p></div>
+            <div><div class="dc-color" style="--c:#EF4444"></div><p class="dc-caption">Hover<br><span class="hex">#EF4444</span></p></div>
+            <div><div class="dc-color" style="--c:#B91C1C"></div><p class="dc-caption">Active<br><span class="hex">#B91C1C</span></p></div>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="dc-block">
+          <p class="dc-title">Info</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#0EA5E9"></div><p class="dc-caption">Default<br><span class="hex">#0EA5E9</span></p></div>
+            <div><div class="dc-color" style="--c:#38BDF8"></div><p class="dc-caption">Hover<br><span class="hex">#38BDF8</span></p></div>
+            <div><div class="dc-color" style="--c:#0284C7"></div><p class="dc-caption">Active<br><span class="hex">#0284C7</span></p></div>
+          </div>
         </div>
       </div>
-            <h3 class="text-2xl font-semibold mt-16 mb-6 text-blue-500">Department Colors</h3>
-      <div class="grid grid-cols-3 md:grid-cols-6 gap-6 mb-8 text-center">
-        <div>
-            <div class="color-swatch" style="background-color: #4B5563"></div>
-            <p class="mt-2 font-semibold">All</p>
+    </div>
+
+    <!-- DARK THEME -->
+    <div class="dc-dark">
+      <h4 class="text-lg font-semibold mb-4">Dark Theme</h4>
+      <div class="dc-grid">
+        <!-- Primary -->
+        <div class="dc-block">
+          <p class="dc-title">Primary</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#3B82F6"></div><p class="dc-caption">Default<br><span class="hex">#3B82F6</span></p></div>
+            <div><div class="dc-color" style="--c:#60A5FA"></div><p class="dc-caption">Hover<br><span class="hex">#60A5FA</span></p></div>
+            <div><div class="dc-color" style="--c:#2563EB"></div><p class="dc-caption">Active<br><span class="hex">#2563EB</span></p></div>
+          </div>
         </div>
-        <div>
-            <div class="color-swatch" style="background-color: #6D28D9"></div>
-            <p class="mt-2 font-semibold">Designers</p>
+
+        <!-- Secondary -->
+        <div class="dc-block">
+          <p class="dc-title">Secondary</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#9CA3AF"></div><p class="dc-caption">Default<br><span class="hex">#9CA3AF</span></p></div>
+            <div><div class="dc-color" style="--c:#D1D5DB"></div><p class="dc-caption">Hover<br><span class="hex">#D1D5DB</span></p></div>
+            <div><div class="dc-color" style="--c:#6B7280"></div><p class="dc-caption">Active<br><span class="hex">#6B7280</span></p></div>
+          </div>
         </div>
-        <div>
-            <div class="color-swatch" style="background-color: #147857"></div>
-            <p class="mt-2 font-semibold">Developers</p>
+
+        <!-- Success -->
+        <div class="dc-block">
+          <p class="dc-title">Success</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#22C55E"></div><p class="dc-caption">Default<br><span class="hex">#22C55E</span></p></div>
+            <div><div class="dc-color" style="--c:#4ADE80"></div><p class="dc-caption">Hover<br><span class="hex">#4ADE80</span></p></div>
+            <div><div class="dc-color" style="--c:#16A34A"></div><p class="dc-caption">Active<br><span class="hex">#16A34A</span></p></div>
+          </div>
         </div>
-        <div>
-            <div class="color-swatch" style="background-color: #DC2626"></div>
-            <p class="mt-2 font-semibold">Managers</p>
+
+        <!-- Tertiary -->
+        <div class="dc-block">
+          <p class="dc-title">Tertiary</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#C084FC"></div><p class="dc-caption">Default<br><span class="hex">#C084FC</span></p></div>
+            <div><div class="dc-color" style="--c:#D8B4FE"></div><p class="dc-caption">Hover<br><span class="hex">#D8B4FE</span></p></div>
+            <div><div class="dc-color" style="--c:#A855F7"></div><p class="dc-caption">Active<br><span class="hex">#A855F7</span></p></div>
+          </div>
         </div>
-        <div>
-            <div class="color-swatch" style="background-color: #EC4899"></div>
-            <p class="mt-2 font-semibold">Marketers</p>
+
+        <!-- Warning (orange) -->
+        <div class="dc-block">
+          <p class="dc-title">Warning</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#FB923C"></div><p class="dc-caption">Default<br><span class="hex">#FB923C</span></p></div>
+            <div><div class="dc-color" style="--c:#FDBA74"></div><p class="dc-caption">Hover<br><span class="hex">#FDBA74</span></p></div>
+            <div><div class="dc-color" style="--c:#F97316"></div><p class="dc-caption">Active<br><span class="hex">#F97316</span></p></div>
+          </div>
         </div>
-        <div>
-            <div class="color-swatch" style="background-color: #F97316"></div>
-            <p class="mt-2 font-semibold">Videographers</p>
+
+        <!-- Delete -->
+        <div class="dc-block">
+          <p class="dc-title">Delete</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#EF4444"></div><p class="dc-caption">Default<br><span class="hex">#EF4444</span></p></div>
+            <div><div class="dc-color" style="--c:#F87171"></div><p class="dc-caption">Hover<br><span class="hex">#F87171</span></p></div>
+            <div><div class="dc-color" style="--c:#DC2626"></div><p class="dc-caption">Active<br><span class="hex">#DC2626</span></p></div>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="dc-block">
+          <p class="dc-title">Info</p>
+          <div class="dc-swatches">
+            <div><div class="dc-color" style="--c:#38BDF8"></div><p class="dc-caption">Default<br><span class="hex">#38BDF8</span></p></div>
+            <div><div class="dc-color" style="--c:#7DD3FC"></div><p class="dc-caption">Hover<br><span class="hex">#7DD3FC</span></p></div>
+            <div><div class="dc-color" style="--c:#0EA5E9"></div><p class="dc-caption">Active<br><span class="hex">#0EA5E9</span></p></div>
+          </div>
         </div>
       </div>
-      <div class="mt-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
-        <p class="text-sm text-gray-700"><strong>Note:</strong> Lighter or darker shades of the above colors may be used to expand the palette.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  #system-colors { font-family: Inter, system-ui, sans-serif; }
+  .dc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+  }
+  .dc-title { font-weight: 600; margin-bottom: 8px; color: inherit; }
+  .dc-swatches { display: flex; gap: 8px; justify-content: space-between; }
+  .dc-swatches > div { text-align: center; flex: 1; }
+  .dc-color { width: 100%; height: 56px; border-radius: 10px; background: var(--c); box-shadow: 0 2px 4px rgba(0,0,0,.15); }
+  .dc-caption { font-size: 12px; font-weight: 600; color: #374151; margin-top: 4px; line-height: 1.25; }
+  .dc-caption .hex { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #6B7280; }
+  .dc-dark {
+    background: #1a202c; padding: 16px; border-radius: 12px;
+    color: #e5e7eb; border: 1px solid #2a3441;
+  }
+  .dc-dark .dc-caption { color: #f3f4f6; }
+  .dc-dark .dc-caption .hex { color: #d1d5db; }
+</style>
+
+
+      <!-- ============== DEPARTMENT COLORS (using your palette) ============== -->
+<!-- ============== DEPARTMENT COLORS (with visible HEX values) ============== -->
+<section id="department-colors" class="mb-16">
+  <h3 class="text-2xl font-semibold mt-16 mb-6 text-blue-500">Department Colors</h3>
+
+  <!-- Ваш ряд з основними кольорами департаментів -->
+  <div class="grid grid-cols-3 md:grid-cols-6 gap-6 mb-8 text-center">
+    <div>
+      <div class="color-swatch" style="background-color: #4B5563"></div>
+      <p class="mt-2 font-semibold">All</p>
+      <p class="text-xs text-gray-500">#4B5563</p>
+    </div>
+    <div>
+      <div class="color-swatch" style="background-color: #6D28D9"></div>
+      <p class="mt-2 font-semibold">Designers</p>
+      <p class="text-xs text-gray-500">#6D28D9</p>
+    </div>
+    <div>
+      <div class="color-swatch" style="background-color: #147857"></div>
+      <p class="mt-2 font-semibold">Developers</p>
+      <p class="text-xs text-gray-500">#147857</p>
+    </div>
+    <div>
+      <div class="color-swatch" style="background-color: #DC2626"></div>
+      <p class="mt-2 font-semibold">Managers</p>
+      <p class="text-xs text-gray-500">#DC2626</p>
+    </div>
+    <div>
+      <div class="color-swatch" style="background-color: #EC4899"></div>
+      <p class="mt-2 font-semibold">Marketers</p>
+      <p class="text-xs text-gray-500">#EC4899</p>
+    </div>
+    <div>
+      <div class="color-swatch" style="background-color: #F97316"></div>
+      <p class="mt-2 font-semibold">Videographers</p>
+      <p class="text-xs text-gray-500">#F97316</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- Light Theme -->
+    <div>
+      <h4 class="text-lg font-semibold mb-4 text-gray-700">Light Theme</h4>
+      <div class="dc-grid">
+        <!-- All -->
+        <div class="dc-block">
+          <p class="dc-title">All</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#4B5563"></div>
+              <p class="dc-caption">Default<br><span class="hex">#4B5563</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#6B7280"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#6B7280</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#374151"></div>
+              <p class="dc-caption">Active<br><span class="hex">#374151</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Designers -->
+        <div class="dc-block">
+          <p class="dc-title">Designers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#6D28D9"></div>
+              <p class="dc-caption">Default<br><span class="hex">#6D28D9</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#7C3AED"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#7C3AED</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#5B21B6"></div>
+              <p class="dc-caption">Active<br><span class="hex">#5B21B6</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="dc-block">
+          <p class="dc-title">Developers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#147857"></div>
+              <p class="dc-caption">Default<br><span class="hex">#147857</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#1FA97A"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#1FA97A</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#0F5C44"></div>
+              <p class="dc-caption">Active<br><span class="hex">#0F5C44</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Managers -->
+        <div class="dc-block">
+          <p class="dc-title">Managers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#DC2626"></div>
+              <p class="dc-caption">Default<br><span class="hex">#DC2626</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#EF4444"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#EF4444</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#B91C1C"></div>
+              <p class="dc-caption">Active<br><span class="hex">#B91C1C</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marketers -->
+        <div class="dc-block">
+          <p class="dc-title">Marketers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#EC4899"></div>
+              <p class="dc-caption">Default<br><span class="hex">#EC4899</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#F472B6"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#F472B6</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#DB2777"></div>
+              <p class="dc-caption">Active<br><span class="hex">#DB2777</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Videographers -->
+        <div class="dc-block">
+          <p class="dc-title">Videographers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#F97316"></div>
+              <p class="dc-caption">Default<br><span class="hex">#F97316</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#FB923C"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#FB923C</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#EA580C"></div>
+              <p class="dc-caption">Active<br><span class="hex">#EA580C</span></p>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Dark Theme -->
+    <div class="dc-dark">
+      <h4 class="text-lg font-semibold mb-4">Dark Theme</h4>
+      <div class="dc-grid">
+        <!-- All -->
+        <div class="dc-block">
+          <p class="dc-title">All</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#9CA3AF"></div>
+              <p class="dc-caption">Default<br><span class="hex">#9CA3AF</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#D1D5DB"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#D1D5DB</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#6B7280"></div>
+              <p class="dc-caption">Active<br><span class="hex">#6B7280</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Designers -->
+        <div class="dc-block">
+          <p class="dc-title">Designers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#A78BFA"></div>
+              <p class="dc-caption">Default<br><span class="hex">#A78BFA</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#C4B5FD"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#C4B5FD</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#7C3AED"></div>
+              <p class="dc-caption">Active<br><span class="hex">#7C3AED</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="dc-block">
+          <p class="dc-title">Developers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#35C49B"></div>
+              <p class="dc-caption">Default<br><span class="hex">#35C49B</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#7DE1C1"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#7DE1C1</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#1FA97A"></div>
+              <p class="dc-caption">Active<br><span class="hex">#1FA97A</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Managers -->
+        <div class="dc-block">
+          <p class="dc-title">Managers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#F87171"></div>
+              <p class="dc-caption">Default<br><span class="hex">#F87171</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#FCA5A5"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#FCA5A5</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#EF4444"></div>
+              <p class="dc-caption">Active<br><span class="hex">#EF4444</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marketers -->
+        <div class="dc-block">
+          <p class="dc-title">Marketers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#F9A8D4"></div>
+              <p class="dc-caption">Default<br><span class="hex">#F9A8D4</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#FBCFE8"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#FBCFE8</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#F472B6"></div>
+              <p class="dc-caption">Active<br><span class="hex">#F472B6</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Videographers -->
+        <div class="dc-block">
+          <p class="dc-title">Videographers</p>
+          <div class="dc-swatches">
+            <div>
+              <div class="dc-color" style="--c:#FDBA74"></div>
+              <p class="dc-caption">Default<br><span class="hex">#FDBA74</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#FED7AA"></div>
+              <p class="dc-caption">Hover<br><span class="hex">#FED7AA</span></p>
+            </div>
+            <div>
+              <div class="dc-color" style="--c:#FB923C"></div>
+              <p class="dc-caption">Active<br><span class="hex">#FB923C</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /Dark Theme -->
+  </div>
+</section>
+
+<style>
+  #department-colors { font-family: Inter, system-ui, sans-serif; }
+  .color-swatch { width: 70px; height: 70px; margin: 0 auto; border-radius: 8px; }
+
+  .dc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+  }
+  .dc-title { font-weight: 600; margin-bottom: 8px; color: inherit; }
+
+  .dc-swatches { display: flex; gap: 8px; justify-content: space-between; }
+  .dc-swatches > div { text-align: center; flex: 1; }
+
+  .dc-color {
+    width: 100%; height: 56px;
+    border-radius: 10px;
+    background: var(--c);
+    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+  }
+
+  .dc-caption { font-size: 12px; font-weight: 600; color: #374151; margin-top: 4px; line-height: 1.25; }
+  .dc-caption .hex { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #6B7280; }
+
+  /* Темна панель — підвищений контраст підписів */
+  .dc-dark {
+    background: #1a202c;
+    padding: 16px;
+    border-radius: 12px;
+    color: #e5e7eb;
+    border: 1px solid #2a3441;
+  }
+  .dc-dark .dc-caption { color: #e5e7eb; }
+  .dc-dark .dc-caption .hex { color: #d1d5db; }
+</style>
+
 
       <h3 class="text-2xl font-semibold mt-16 mb-6 text-blue-500">Background and Text Colors</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
