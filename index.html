@@ -1593,12 +1593,194 @@ body.dark {
             </div>
         </div>
     </div>
+
+    <div class="md:col-span-1 bg-gray-50 p-4 rounded-lg border border-gray-200">
+    <h4 class="text-sm font-semibold mb-3 text-gray-700">Стани кнопок-фільтрів:</h4>
+    <div class="space-y-2">
+        <div class="flex items-center gap-3">
+            <button class="px-4 py-2 text-sm font-semibold rounded-full border border-transparent hover:bg-gray-200" disabled>Default</button>
+            <span class="text-sm text-gray-600">- Звичайний</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="px-4 py-2 text-sm font-semibold rounded-full border border-transparent bg-gray-200" disabled>Hover</button>
+            <span class="text-sm text-gray-600">- При наведенні</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="filter-btn filter-designers active px-4 py-2 text-sm font-semibold rounded-full border" disabled>Active</button>
+            <span class="text-sm text-gray-600">- Обраний</span>
+        </div>
+    </div>
+</div>
+
   </div>
 
+
+  
   <h3 class="text-3xl font-semibold mb-8 mt-16 text-gray-800">Full Modal Examples</h3>
 
   <div class="p-10 bg-[#f9fafb] text-[#1f2937] rounded-2xl space-y-14 font-sans border border-gray-200">
 
+    <style>
+    /* Кастомні кольори департаментів */
+    :root {
+        --designers-color: #6D28D9;
+        --managers-color: #DC2626;
+        --marketers-color: #EC4899;
+        --developers-color: #147857;
+        --videographers-color: #F97316;
+        --all-color: #4B5563; /* Gray */
+        --other-color: #4B5563;
+    }
+
+    .tag { border: 1px solid transparent; }
+    
+    /* All */
+    .filter-btn.filter-all.active { 
+        color: var(--all-color); 
+        background-color: rgba(75, 85, 99, 0.15); 
+        border-color: var(--all-color); 
+    }
+
+    /* Designers */
+    .filter-btn.filter-designers.active, .tag-designers { 
+        color: var(--designers-color); 
+        background-color: rgba(109, 40, 217, 0.1); 
+        border-color: var(--designers-color); 
+    }
+
+    /* Managers */
+    .filter-btn.filter-managers.active, .tag-managers { 
+        color: var(--managers-color); 
+        background-color: rgba(220, 38, 38, 0.1); 
+        border-color: var(--managers-color); 
+    }
+
+    /* Marketers */
+    .filter-btn.filter-marketers.active, .tag-marketers { 
+        color: var(--marketers-color); 
+        background-color: rgba(236, 72, 153, 0.1); 
+        border-color: var(--marketers-color); 
+    }
+
+    /* Developers */
+    .filter-btn.filter-developers.active, .tag-developers { 
+        color: var(--developers-color); 
+        background-color: rgba(16, 185, 129, 0.1); 
+        border-color: var(--developers-color); 
+    }
+    
+    /* Videographers */
+    .filter-btn.filter-videographers.active, .tag-videographers { 
+        color: var(--videographers-color); 
+        background-color: rgba(249, 115, 22, 0.1); 
+        border-color: var(--videographers-color); 
+    }
+
+    /* Other/Default Tag */
+     .tag-other { 
+        color: var(--other-color); 
+        background-color: rgba(75, 85, 99, 0.1); 
+        border-color: var(--other-color); 
+    }
+</style>
+
+<section id="professions-section" class="bg-white text-gray-900 rounded-xl shadow-lg p-6 max-w-3xl mx-auto my-10">
+    
+    <div class="mb-4">
+        <h2 class="text-2xl font-bold">This course is suitable for</h2>
+    </div>
+    
+    <div id="professions-department-filters" class="flex flex-wrap items-center gap-2 mb-4 pb-4 border-b border-gray-200">
+        <button class="filter-btn filter-all active px-4 py-2 text-sm font-semibold rounded-full border border-transparent" data-dept="all">All</button>
+        <button class="filter-btn filter-designers px-4 py-2 text-sm font-semibold rounded-full border border-transparent hover:bg-gray-200" data-dept="designers">Designers</button>
+        <button class="filter-btn filter-developers px-4 py-2 text-sm font-semibold rounded-full border border-transparent hover:bg-gray-200" data-dept="developers">Developers</button>
+        <button class="filter-btn filter-managers px-4 py-2 text-sm font-semibold rounded-full border border-transparent hover:bg-gray-200" data-dept="managers">Managers</button>
+        <button class="filter-btn filter-marketers px-4 py-2 text-sm font-semibold rounded-full border border-transparent hover:bg-gray-200" data-dept="marketers">Marketers</button>
+        <button class="filter-btn filter-videographers px-4 py-2 text-sm font-semibold rounded-full border border-transparent hover:bg-gray-200" data-dept="videographers">Videographers</button>
+    </div>
+    
+    <div id="professions-list-container" class="max-h-96 overflow-y-auto p-1">
+        </div>
+</section>
+
+<script>
+    (function() {
+        // --- ДАНІ ДЛЯ СЕКЦІЇ ---
+        const professionsData = {
+            'designers': ['3d designer', 'Graphic designer', 'Illustrator', 'Interior designer', 'Motion designer', 'UI UX designer', 'Web designer', 'Wordpress designer', 'Vizualizer'],
+            'developers': ['Back end developer', 'Full stack developer', 'Front end developer', 'Mobile developer', 'QA', 'System administrator', 'Prompt engineer'],
+            'managers': ['Account manager', 'Content manager', 'Event manager', 'Financial manager', 'HR manager', 'Investment manager', 'Influencer manager', 'Product manager', 'Project manager', 'PR manager', 'Sales manager', 'SEO manager', 'Social media manager', 'beginner'],
+            'marketers': ['Affiliate manager', 'Copywriter', 'Email marketer', 'Lead generator', 'Linkbuilder', 'Media buyer', 'PPC specialist', 'Targetologist'],
+            'videographers': ['Mobile video editor', 'Video editor'],
+            'other': ['Analyst', 'Chat operator', 'Personal assistant', 'Proofreader', 'Recruiter', 'Translator', 'Tourism manager']
+        };
+
+        // --- ЛОГІКА НАПОВНЕННЯ СЕКЦІЇ ---
+        function populateProfessionsList() {
+            const professionsListContainer = document.getElementById('professions-list-container');
+            if (!professionsListContainer) return;
+            
+            const departmentOrder = ['designers', 'developers', 'managers', 'marketers', 'videographers', 'other'];
+            let htmlContent = '';
+
+            departmentOrder.forEach(dept => {
+                const professions = professionsData[dept];
+                if (professions && professions.length > 0) {
+                    htmlContent += `<div class="department-group w-full mb-6" data-group-dept="${dept}">`;
+                    htmlContent += `<div class="flex flex-wrap gap-3">`;
+                    professions.sort().forEach(prof => {
+                        const styleClass = `tag-${dept}`;
+                        htmlContent += `<div class="profession-tag-container" data-dept="${dept}">
+                                        <div class="profession-tag ${styleClass} inline-block text-sm font-semibold py-2 px-4 rounded-lg capitalize">
+                                            ${prof}
+                                        </div>
+                                    </div>`;
+                    });
+                    htmlContent += `</div></div>`;
+                }
+            });
+            professionsListContainer.innerHTML = htmlContent;
+        }
+
+        // --- ЛОГІКА ФІЛЬТРАЦІЇ ---
+        function setupProfessionsFilters() {
+            const filterContainer = document.getElementById('professions-department-filters');
+            if (!filterContainer) return;
+            
+            const filterButtons = filterContainer.querySelectorAll('.filter-btn');
+            const professionsContainer = document.getElementById('professions-list-container');
+            if (!professionsContainer) return;
+            
+            const departmentGroups = professionsContainer.querySelectorAll('.department-group');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const selectedDept = button.dataset.dept;
+
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        // Видалено dark:hover:bg-gray-700
+                        btn.classList.add('hover:bg-gray-200'); 
+                    });
+                    button.classList.add('active');
+                    // Видалено dark:hover:bg-gray-700
+                    button.classList.remove('hover:bg-gray-200'); 
+                });
+            });
+        }
+        
+        // --- ІНІЦІАЛІЗАЦІЯ ---
+        if (document.readyState === 'loading') {
+            document.addEventListener("DOMContentLoaded", () => {
+                populateProfessionsList();
+                setupProfessionsFilters();
+            });
+        } else {
+            populateProfessionsList();
+            setupProfessionsFilters();
+        }
+    })();
+</script>
     <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.15)] overflow-hidden">
       <div class="flex justify-between items-center px-6 pt-5 pb-3 border-b border-[#E5E7EB]">
         <div>
@@ -2251,14 +2433,13 @@ body.dark {
       </div>
     </section>
 
-    <section class="mb-16">
-        <h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🖼️ Cover Photos</h2>
+<h2 class="text-4xl font-bold mb-8 pb-4 border-b-2 border-gray-200">🖼️ Cover Photos</h2>
         <div class="grid grid-cols-1 gap-12">
             <div>
                 <h3 class="text-2xl font-semibold mb-6 text-blue-500">Video Catalog Banner</h3>
                 <div class="p-4 bg-gray-50 rounded-lg">
                     <div style="width: 1300px; height: 210px; max-width: 100%;" class="overflow-hidden rounded-lg shadow-md bg-gray-200">
-                        <img src="pic.png" alt="Video Catalog Banner" class="w-full h-full object-cover">
+                        <img src="bird.png" alt="Video Catalog Banner" class="w-full h-full object-cover">
                     </div>
                     <p class="text-sm text-gray-600 mt-4"><strong>Dimensions:</strong> 1300x210 pixels</p>
                     <p class="text-xs text-gray-500 mt-2">Used as a wide banner on the main video catalog page to showcase featured content or announcements.</p>
@@ -2268,13 +2449,24 @@ body.dark {
                 <h3 class="text-2xl font-semibold mb-6 text-blue-500">Course Cover</h3>
                 <div class="p-4 bg-gray-50 rounded-lg">
                      <div style="width: 1280px; height: 485px; max-width: 100%;" class="overflow-hidden rounded-lg shadow-md bg-gray-200">
-                        <img src="video.png" alt="Course Cover" class="w-full h-full object-cover">
+                        <img src="bird.png" alt="Course Cover" class="w-full h-full object-cover">
                     </div>
                     <p class="text-sm text-gray-600 mt-4"><strong>Dimensions:</strong> 1280x485 pixels</p>
                     <p class="text-xs text-gray-500 mt-2">Used as the primary thumbnail for individual course pages and video previews.</p>
                 </div>
             </div>
-        </div>
+            
+            <div>
+                <h3 class="text-2xl font-semibold mb-6 text-blue-500">Lesson Cover</h3>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                     <div style="width: 1425px; height: 330px; max-width: 100%;" class="overflow-hidden rounded-lg shadow-md bg-gray-200">
+                        <img src="bird.png" alt="Lesson Cover" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4"><strong>Dimensions:</strong> 1425x330 pixels</p>
+                    <p class="text-xs text-gray-500 mt-2">Used as the primary cover image for individual lesson pages.</p>
+                </div>
+            </div>
+            </div>
     </section>
 
 
@@ -2825,6 +3017,155 @@ body.dark {
         <div class="mascot-right">
           <h5>AI Generation Prompt:</h5>
           <pre class="prompt"><code>Large expressive green eyes, small pink nose, light blush on cheeks, long eyelashes. Neatly styled tuft of hair on top resembling playful curls. Wearing a light blue button-up shirt with short sleeves and a badge on the chest with the inscription “Meeky”. Pose & Mood: Standing upright, mid-friendly and slightly shy gesture (hands together or small wave). Gentle but confident smile, front-facing. Hair: Tuft styled into playful curls.</code></pre>
+        </div>
+      </div>
+    </article>
+
+
+        <!-- Nala -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="lion.png" alt="Meeky mascot 1"></div>
+            <div><img src="lion2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Nala</h4>
+          <p>Financial Managers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>Highly detailed image in the Pixar animation style of a female lion character named Nala. Nala is an adult lion with a creamy-colored coat, large brown eyes, and medium-length straight brown hair. She is anthropomorphic, wearing a white shirt and a suit jacket with a red badge. The background is clean and simple (white or pastel). --ar 1:1 --stylize 750</code></pre>
+        </div>
+      </div>
+    </article>
+
+        <!-- Ginny -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="tiger.png" alt="Meeky mascot 1"></div>
+            <div><img src="tiger2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Ginny</h4>
+          <p>Project Managers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>Pixar-style 3D cartoon mascot, anthropomorphic female tiger with orange fur and black stripes, large bright blue eyes, and medium-length straight orange hair. Wearing a white shirt and a jacket with a red badge. Confident yet approachable demeanor, friendly expression. Front-facing, professional high-quality rendering, clean white background, character design, mascot logo --ar 1:1 --stylize 750</code></pre>
+        </div>
+      </div>
+    </article>
+
+     <!-- Kira -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="puma.png" alt="Meeky mascot 1"></div>
+            <div><img src="puma2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Kira</h4>
+          <p>Sales Managers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>Highly detailed image in the Pixar animation style of a female puma character named Kira. Kira is an adult puma with creamy-colored fur, large blue eyes, and medium-straight white hair. She is wearing a white shirt and a jacket (or full suit) with a red badge. The scene shows Kira [insert action or emotion here]. The background is white. Front view, medium shot.</code></pre>
+        </div>
+      </div>
+    </article>
+
+         <!-- Sarah -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="parrot.png" alt="Meeky mascot 1"></div>
+            <div><img src="parrot2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Sarah</h4>
+          <p>Graphic Designers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>Highly detailed image in the Pixar animation style of a female parrot named Sarah. Sarah is an adult parrot with nude red and yellow feathers. She has large blue eyes (no glasses). She is wearing a white oversized shirt with a purple badge. Sarah has long, straight red hair. Sarah is standing still with a calm expression, looking straight ahead. Create a front view medium shot of Sarah with a white background.</code></pre>
+        </div>
+      </div>
+    </article>
+
+             <!-- Lily -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="cockatoo.png" alt="Meeky mascot 1"></div>
+            <div><img src="cockatoo2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Lily</h4>
+          <p>3D Designers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>Pixar-style 3D cartoon female cockatoo mascot, anthropomorphic, nude pink and white feathers with subtle texture, large bright blue eyes (no glasses), medium straight pink hair. Wearing a white oversized shirt with a purple badge. Friendly and approachable demeanor, character design, mascot logo, professional rendering, front-facing, square aspect ratio, clean white background --ar 1:1 --stylize 750</code></pre>
+        </div>
+      </div>
+    </article>
+
+                 <!-- Katy -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="marta.png" alt="Meeky mascot 1"></div>
+            <div><img src="marta2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Katy</h4>
+          <p>UI/UX Designers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>A highly detailed, photorealistic anthropomorphic falcon mascot with soft, light-colored feathers, blending pale beige and white tones for a brighter appearance. The falcon has large, expressive purple eyes with long eyelashes, without any shadows inside the eyes, making them appear clear and vibrant. The beak is small and polished, with a slight golden hue. The falcon wears a crisp white button-up shirt, but the shirt is minimally visible, blending subtly with the overall design. The lighting is soft and professional, creating a premium, high-quality character render with a smooth gradient background. The style should resemble 3D Pixar-like animation with a polished and professional touch.</code></pre>
+        </div>
+      </div>
+    </article>
+    
+                 <!-- Marta -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="blue.png" alt="Meeky mascot 1"></div>
+            <div><img src="blue2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Marta</h4>
+          <p>Interior Designers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>A highly detailed, photorealistic anthropomorphic parrot mascot, designed in soft blue and white tones, creating a calm and elegant look. The feathers are smooth and slightly fluffy, blending bright sky blue with gentle white gradients. The parrot has large, expressive purple eyes with long eyelashes, without any shadows inside the eyes, making them appear clear, open, and vibrant. The beak is small, polished, with a subtle golden shimmer, delicate and rounded. The parrot is wearing a crisp white button-up shirt that is only partially visible and blends naturally with the overall feather design. The parrot is facing forward, looking directly at the viewer, centered in the frame, creating a friendly and engaging expression. The lighting is soft and professional, emphasizing the premium, high-quality rendering of the character. The background is a smooth gradient, and the style resembles polished 3D Pixar-like animation — charming, friendly, and professional. Focus on a clean, bright, and minimal aesthetic, like the parakeets in the reference image</code></pre>
+        </div>
+      </div>
+    </article>
+
+                     <!-- Sandy -->
+    <article class="mascot-card">
+      <div class="mascot-flex">
+        <div class="mascot-left">
+          <div class="mascot-gallery-2">
+            <div><img src="sandy.png" alt="Meeky mascot 1"></div>
+            <div><img src="sandy2.png" alt="Meeky mascot 2"></div>
+          </div>
+          <h4>Sandy</h4>
+          <p>SMM Managers</p>
+        </div>
+        <div class="mascot-right">
+          <h5>AI Generation Prompt:</h5>
+          <pre class="prompt"><code>Appearance:  A female seahorse with soft pastel pink skin as the main color, accented with lavender-purple highlights on her fins and crest. Her crest is styled like a trendy swept hairstyle, giving her a lively and fashionable vibe. Large teal-green eyes with long lashes add charm. Her curled tail has a light gradient into coral tones. She wears a teal blazer over a white T-shirt, accessorized with a slim smartwatch. Her name tag is labeled “SANDY”.
+Personality:  Friendly, adaptable, trend-savvy, and creative. She embodies the role of a Social Media Manager — flexible, quick to react, and highly engaging.
+Background: Works as a Social Media Manager in a creative agency, always monitoring multiple platforms at once, planning campaigns, and engaging with audiences.
+Preferred Art Style: Pixar-style 3D animation
+Pose or Expression: Confident and friendly, holding a smartphone in one hand and gesturing with the other as if presenting or live-streaming. Tail curls naturally, fins slightly fanned out for charm.</code></pre>
         </div>
       </div>
     </article>
