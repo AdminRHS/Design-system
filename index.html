@@ -433,6 +433,9 @@ body.dark {
 
   </style>
 </head>
+
+
+
 <body class="p-6 lg:p-12">
 
   
@@ -1444,7 +1447,7 @@ body.dark {
 
     <div>
         <h4 class="text-xl font-semibold mb-4 text-gray-700">1. Search Bar (Input)</h4>
-        <p class="text-sm text-gray-600 mb-4">Статична демонстрація станів поля пошуку. "Active" імітує стан <code>:focus</code>.</p>
+        <p class="text-sm text-gray-600 mb-4">Static demonstration of states in the search fields. "Active" simulates the<code>:focus</code>.</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             
             <div>
@@ -1475,7 +1478,7 @@ body.dark {
 
     <div>
         <h4 class="text-xl font-semibold mb-4 text-gray-700">2. Filter Buttons (Participants)</h4>
-        <p class="text-sm text-gray-600 mb-4">Статична демонстрація станів кнопок фільтрації. "Hover" показує новий світло-синій фон.</p>
+        <p class="text-sm text-gray-600 mb-4">Static display of filter button states. "Hover" shows a new light blue background.</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             
             <div>
@@ -1503,7 +1506,7 @@ body.dark {
     
     <div>
         <h4 class="text-xl font-semibold mb-4 text-gray-700">3. Primary Button (Submit)</h4>
-        <p class="text-sm text-gray-600 mb-4">Статична демонстрація станів основної синьої кнопки.</p>
+        <p class="text-sm text-gray-600 mb-4">Static demonstration of the states of the main blue button.</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             
             <div>
@@ -1561,7 +1564,7 @@ body.dark {
 
     <div>
         <h4 class="text-xl font-semibold mb-4 text-gray-700">5. Participant List Item</h4>
-        <p class="text-sm text-gray-600 mb-4">Статична демонстрація станів рядка зі списку учасників.</p>
+        <p class="text-sm text-gray-600 mb-4">Static display of row states from the participant list.</p>
         <div class="space-y-3">
             
             <div>
@@ -1595,19 +1598,19 @@ body.dark {
     </div>
 
     <div class="md:col-span-1 bg-gray-50 p-4 rounded-lg border border-gray-200">
-    <h4 class="text-sm font-semibold mb-3 text-gray-700">Стани кнопок-фільтрів:</h4>
+    <h4 class="text-sm font-semibold mb-3 text-gray-700">Filter button states:</h4>
     <div class="space-y-2">
         <div class="flex items-center gap-3">
             <button class="px-4 py-2 text-sm font-semibold rounded-full border border-transparent hover:bg-gray-200" disabled>Default</button>
-            <span class="text-sm text-gray-600">- Звичайний</span>
+            <span class="text-sm text-gray-600">- Usual</span>
         </div>
         <div class="flex items-center gap-3">
             <button class="px-4 py-2 text-sm font-semibold rounded-full border border-transparent bg-gray-200" disabled>Hover</button>
-            <span class="text-sm text-gray-600">- При наведенні</span>
+            <span class="text-sm text-gray-600">- When hovering</span>
         </div>
         <div class="flex items-center gap-3">
             <button class="filter-btn filter-designers active px-4 py-2 text-sm font-semibold rounded-full border" disabled>Active</button>
-            <span class="text-sm text-gray-600">- Обраний</span>
+            <span class="text-sm text-gray-600">- Elect</span>
         </div>
     </div>
 </div>
@@ -3441,6 +3444,12 @@ Pose or Expression: Confident and friendly, holding a smartphone in one hand and
       gridBtn.addEventListener('click', () => activate(gridBtn, listBtn));
       listBtn.addEventListener('click', () => activate(listBtn, gridBtn));
     })();
+
+
+
+
+
+
 
   </script>
 </body>
